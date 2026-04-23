@@ -12,6 +12,22 @@
 		return max(newtime, 1) // Master skill and 16 PER will hit the aim time floor.
 	return chargetime
 
+/datum/intent/arc/arquebus
+	chargetime = 1
+	chargedrain = 0
+
+/datum/intent/arc/arquebus/prewarning()
+	if(masteritem && mastermob)
+		mastermob.visible_message(span_warning("[mastermob] aims [masteritem] carefully..."))
+
+/datum/intent/arc/arquebus/get_chargetime()
+	if(mastermob)
+		var/newtime = 40
+		newtime -= mastermob.get_skill_level(/datum/skill/combat/firearms) * 4.6
+		newtime -= mastermob.STAPER
+		return max(newtime, 12) // Raise the aim time floor like bow arc, instead of raising the floor and making it much faster to reach it like crossbow arc.
+	return chargetime
+
 /obj/item/gun/ballistic/arquebus/pistol
     name = "arquebus pistol"
     icon = 'icons/roguetown/weapons/32.dmi'
