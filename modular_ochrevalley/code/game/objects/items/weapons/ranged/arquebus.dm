@@ -34,6 +34,9 @@
 		return max(newtime, 12) // Raise the aim time floor like bow arc, instead of raising the floor and making it much faster to reach it like crossbow arc.
 	return chargetime
 
+/obj/item/gun/ballistic/arquebus/
+	gripped_intents = list(/datum/intent/shoot/arquebus, /datum/intent/arc/arquebus, /datum/intent/buttstroke)
+
 /obj/item/gun/ballistic/arquebus/attackby(obj/item/A, mob/living/carbon/user, params) // Reloading code for rifle
 	if (gunchannel) // If you send null, you're going to stop all sound channels!
 		user.stop_sound_channel(gunchannel)
