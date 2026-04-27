@@ -104,12 +104,32 @@
 /datum/intent/shoot/arquebus/pistol/can_charge()
     return TRUE
 
+/datum/intent/shoot/arquebus/pistol/get_chargetime()
+	if(mastermob)
+		var/newtime = 40
+		newtime -= mastermob.get_skill_level(/datum/skill/combat/firearms) * 4 // skill block
+		newtime -= mastermob.STAPER // per block
+		if(mastermob.get_num_arms(FALSE) < 2 || mastermob.get_inactive_held_item()) // If slurbows don't care if your other arm is disabled, I guess pistols don't either.
+			newtime *= 1.5 // It takes longer to aim one-handed.
+		return max(newtime, 1) // Legendary and 15 PER will hit the aim time floor.
+	return chargetime
+
 /datum/intent/arc/arquebus/pistol
     chargetime = 12
     chargedrain = 0
 
 /datum/intent/arc/arquebus/pistol/can_charge()
 	return TRUE
+
+/datum/intent/arc/arquebus/pistol/get_chargetime()
+	if(mastermob)
+		var/newtime = 40
+		newtime -= mastermob.get_skill_level(/datum/skill/combat/firearms) * 4
+		newtime -= mastermob.STAPER
+		if(mastermob.get_num_arms(FALSE) < 2 || mastermob.get_inactive_held_item())
+			newtime *= 1.5
+		return max(newtime, 12)
+	return chargetime
 
 /obj/item/gun/ballistic/arquebus/pistol
     name = "arquebus pistol"
