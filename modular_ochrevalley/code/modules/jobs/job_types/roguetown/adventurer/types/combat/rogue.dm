@@ -3,7 +3,7 @@
 /datum/outfit/job/roguetown/adventurer/buccaneer/pre_equip(mob/living/carbon/human/H)
     ..()
     to_chat(H, span_warning("You are a daring rogue of the seas! Buccaneers wield deadly firearms and ruthless cunning - fighting dirty to outgun foes with swagger."))
-    r_hand = /obj/item/gun/ballistic/arquebus/pistol // The gun!
+    r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/pistol // The gun!
     l_hand = /obj/item/powderflask
     head = /obj/item/clothing/head/roguetown/helmet/tricorn
     pants = /obj/item/clothing/under/roguetown/tights/sailor

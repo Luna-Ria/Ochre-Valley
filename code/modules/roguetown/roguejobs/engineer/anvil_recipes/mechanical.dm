@@ -275,6 +275,7 @@
 
 //Caustic edit
 // ------------ GUNS (Ported from Ratwood) ----------------
+/* OV Edit: Refactor Arquebus
 /datum/anvil_recipe/engineering/arquebus
 	name = "Arquebus (+1 bronze, +1 cog, +1 wood)"
 	req_bar = /obj/item/ingot/bronze
@@ -282,7 +283,6 @@
 	created_item = /obj/item/gun/ballistic/arquebus
 	craftdiff = 5
 
-/* OV Edit: Refactor arquebus pistol to inherit from arquebus.
 /datum/anvil_recipe/engineering/pistol
 	name = "Arquebus Pistol (+1 cog, +1 wood)"
 	req_bar = /obj/item/ingot/bronze

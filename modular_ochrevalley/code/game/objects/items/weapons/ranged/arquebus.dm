@@ -34,10 +34,139 @@
 		return max(newtime, 12) // Raise the aim time floor like bow arc, instead of raising the floor and making it much faster to reach it like crossbow arc.
 	return chargetime
 
-/obj/item/gun/ballistic/arquebus/
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/
+	name = "arquebus rifle"
+	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
+	icon = 'modular_causticcove/icons/weapons/arquebus.dmi'
+	icon_state = "arquebus"
+	item_state = "arquebus"
+	dropshrink = 0.6 // OV Edit, I think this might look nicer.
+	force = 10
+	force_wielded = 15
+	possible_item_intents = list(/datum/intent/mace/strike/wood)
 	gripped_intents = list(/datum/intent/shoot/arquebus, /datum/intent/arc/arquebus, /datum/intent/buttstroke)
+	internal_magazine = TRUE
+	mag_type = /obj/item/ammo_box/magazine/internal/arquebus
+	pixel_y = -16
+	pixel_x = -16
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
+	bigboy = TRUE
+	gripsprite = TRUE
+	wlength = WLENGTH_LONG
+	slot_flags = ITEM_SLOT_BACK
+	w_class = WEIGHT_CLASS_BULKY
+	randomspread = 1
+	spread = 0
+	equip_delay_self = 2 SECONDS
+	unequip_delay_self = 2 SECONDS
+	inv_storage_delay = 4 SECONDS
+	can_parry = TRUE
+	minstr = 6
+	walking_stick = TRUE
+	experimental_onback = TRUE
+	cartridge_wording = "musketball"
+	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
+	fire_sound = "modular_causticcove/sound/arquebus/arquefire.ogg"
+	anvilrepair = /datum/skill/craft/weaponsmithing
+	smeltresult = /obj/item/ingot/bronze
+	bolt_type = BOLT_TYPE_NO_BOLT
+	casing_ejector = FALSE
+	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
+	var/spread_num = 10
+	damfactor = 2
+	var/range = 30
+	var/reloaded = FALSE
+	var/load_time = 50
+	var/gunpowder = FALSE
+	var/obj/item/ramrod/myrod = null
+	var/gunchannel
 
-/obj/item/gun/ballistic/arquebus/attackby(obj/item/A, mob/living/carbon/user, params) // Reloading code for rifle
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/getonmobprop(tag)
+	. = ..()
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.6,"sx" = -7,"sy" = 6,"nx" = 7,"ny" = 6,"wx" = -2,"wy" = 3,"ex" = 1,"ey" = 3,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = -43,"sturn" = 43,"wturn" = 30,"eturn" = -30, "nflip" = 0, "sflip" = 8,"wflip" = 8,"eflip" = 0)
+			if("wielded")
+				return list("shrink" = 0.6,"sx" = 5,"sy" = -2,"nx" = -5,"ny" = -1,"wx" = -8,"wy" = 2,"ex" = 8,"ey" = 2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 1,"nturn" = -45,"sturn" = 45,"wturn" = 0,"eturn" = 0,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
+			if("onback")
+				return list("shrink" = 0.5,"sx" = -1,"sy" = 2,"nx" = 0,"ny" = 2,"wx" = 2,"wy" = 1,"ex" = 0,"ey" = 1,"nturn" = 0,"sturn" = 0,"wturn" = 70,"eturn" = 15,"nflip" = 1,"sflip" = 1,"wflip" = 1,"eflip" = 1,"northabove" = 1,"southabove" = 0,"eastabove" = 0,"westabove" = 0)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/Initialize()
+	. = ..()
+	myrod = new /obj/item/ramrod(src)
+
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
+	fire_sound = pick(
+		"modular_causticcove/sound/arquebus/arquefire.ogg",
+		"modular_causticcove/sound/arquebus/arquefire2.ogg",
+		"modular_causticcove/sound/arquebus/arquefire3.ogg",
+		"modular_causticcove/sound/arquebus/arquefire4.ogg",
+		"modular_causticcove/sound/arquebus/arquefire5.ogg",
+	)
+	. = ..()
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/shoot_with_empty_chamber()
+	playsound(src.loc, 'modular_causticcove/sound/arquebus/musketcock.ogg', 100, FALSE)
+	update_icon()
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
+	spread = (spread_num - firearm_skill)
+	if(user.client)
+		if(user.client.chargedprog >= 100)
+			spread = 0
+			adjust_experience(user, /datum/skill/combat/firearms, user.STAINT * 4)
+		else
+			spread = 150 - (150 * (user.client.chargedprog / 100))
+	else
+		spread = 0
+	for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
+		var/obj/projectile/BB = CB.BB
+		BB.damage = BB.damage * damfactor
+		BB.range = range
+	gunpowder = FALSE
+	reloaded = FALSE
+	user.adjust_experience(/datum/skill/combat/firearms, (user.STAINT*5))
+	..()
+	new /obj/effect/particle_effect/sparks/muzzle(get_ranged_target_turf(user, user.dir, 1))
+	spawn (5)
+		new/obj/effect/particle_effect/smoke/arquebus(get_ranged_target_turf(user, user.dir, 1))
+	spawn (10)
+		new/obj/effect/particle_effect/smoke/arquebus(get_ranged_target_turf(user, user.dir, 2))
+	spawn (16)
+		new/obj/effect/particle_effect/smoke/arquebus(get_ranged_target_turf(user, user.dir, 1))
+	for(var/mob/M in range(5, user))
+		if(!M.stat)
+			shake_camera(M, 3, 1)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/attack_self(mob/living/user)
+	if(twohands_required)
+		return
+	if(altgripped || wielded) //Trying to unwield it
+		ungrip(user)
+		return
+	if(gripped_intents)
+		wield(user)
+	update_icon()
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/attack_right(mob/user)
+	if(user.get_active_held_item())
+		return
+	else
+		if(myrod)
+			playsound(src, "sound/items/sharpen_short1.ogg",  100)
+			to_chat(user, "<span class='warning'>I draw the ramrod from [src]!</span>")
+			var/obj/item/ramrod/AM
+			for(AM in src)
+				user.put_in_hands(AM)
+				myrod = null
+		else
+			to_chat(user, "<span class='warning'>There is no rod stowed in [src]!</span>")
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/attackby(obj/item/A, mob/living/carbon/user, params) // Reloading code for rifle
 	if (gunchannel) // If you send null, you're going to stop all sound channels!
 		user.stop_sound_channel(gunchannel)
 	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
@@ -97,6 +226,11 @@
 			return
 	user.stop_sound_channel(gunchannel)
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/can_shoot()
+	if (!reloaded)
+		return FALSE
+	return ..()
+
 /datum/intent/shoot/arquebus/pistol
     chargetime = 1
     chargedrain = 0
@@ -131,7 +265,7 @@
 		return max(newtime, 12)
 	return chargetime
 
-/obj/item/gun/ballistic/arquebus/pistol
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/pistol
     name = "arquebus pistol"
     icon = 'icons/roguetown/weapons/32.dmi'
     icon_state = "pistol"
@@ -156,7 +290,7 @@
     var/last_spunned
     var/spin_cooldown = 3 SECONDS
 
-/obj/item/gun/ballistic/arquebus/pistol/getonmobprop(tag)
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/pistol/getonmobprop(tag)
     . = ..()
     if(tag)
         switch(tag)
@@ -165,7 +299,7 @@
             if("onbelt")
                 return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
-/obj/item/gun/ballistic/arquebus/pistol/attack_self(mob/living/user)
+/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/pistol/attack_self(mob/living/user)
 	var/string = "smoothly"
 	var/list/strings_noob = list("unsurely", "nervously", "anxiously", "timidly", "shakily", "clumsily", "fumblingly", "awkwardly")
 	var/list/strings_moderate = list("smoothly", "confidently", "determinately", "calmly", "skillfully", "decisively")
@@ -199,3 +333,27 @@
 				user.visible_message("<span class='danger'>[user] accidentally drops [src]!</span>")
 				user.dropItemToGround(src)
 		can_spin = FALSE
+
+/obj/item/quiver/bulletpouch/attackby(obj/A, loc, params)
+	if(A.type in subtypesof(/obj/item/ammo_casing/caseless/rogue/bullet))
+		if(arrows.len < max_storage)
+			if(ismob(loc))
+				var/mob/M = loc
+				M.doUnEquip(A, TRUE, src, TRUE, silent = TRUE)
+			else
+				A.forceMove(src)
+			arrows += A
+			update_icon()
+		else
+			to_chat(loc, span_warning("Full!"))
+		return
+	if(istype(A, /obj/item/gun/ballistic/revolver/grenadelauncher/arquebus))
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/B = A
+		if(arrows.len && !B.chambered)
+			for(var/AR in arrows)
+				if(istype(AR, /obj/item/ammo_casing/caseless/rogue/bullet))
+					arrows -= AR
+					B.attackby(AR, loc, params)
+					break
+		return
+	..()

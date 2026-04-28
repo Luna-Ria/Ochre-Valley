@@ -1,4 +1,4 @@
-
+/* OV Edit: Refactor Arquebus
 /obj/item/gun/ballistic/arquebus
 	name = "arquebus rifle"
 	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
@@ -81,7 +81,7 @@
 				myrod = null
 		else
 			to_chat(user, "<span class='warning'>There is no rod stowed in [src]!</span>")
-
+*/ // OV Edit End
 
 /datum/intent/shoot/arquebus
 	chargedrain = 0
@@ -137,6 +137,7 @@
 			return 1
 	return chargetime
 
+/* OV Edit: Refactor Arquebus
 /obj/item/gun/ballistic/arquebus/shoot_with_empty_chamber()
 	playsound(src.loc, 'modular_causticcove/sound/arquebus/musketcock.ogg', 100, FALSE)
 	update_icon()
@@ -151,7 +152,6 @@
 		wield(user)
 	update_icon()
 
-/* OV Edit: Refactor arquebus loading logic.
 /obj/item/gun/ballistic/arquebus/attackby(obj/item/A, mob/living/carbon/user, params) // Reloading code for rifle
 	user.stop_sound_channel(gunchannel)
 	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
@@ -217,7 +217,6 @@
 			to_chat(user, span_warning("There's already a [R.name] inside of [src]."))
 			return
 		user.stop_sound_channel(gunchannel)
-*/ // OV Edit End
 
 /obj/item/gun/ballistic/arquebus/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 
@@ -261,6 +260,7 @@
 	if (!reloaded)
 		return FALSE
 	return ..()
+*/ // OV Edit End
 
 /obj/item/ammo_box/magazine/internal/arquebus
 	name = "arquebus internal magazine"
@@ -563,6 +563,7 @@
 			if(!eatarrow(bullet))
 				break
 
+/* OV Edit: Arquebus Refactor
 /obj/item/quiver/bulletpouch/attackby(obj/A, loc, params)
 	if(A.type in subtypesof(/obj/item/ammo_casing/caseless/rogue/bullet))
 		if(arrows.len < max_storage)
@@ -586,6 +587,7 @@
 					break
 		return
 	..()
+*/ // OV Edit End
 
 /obj/item/quiver/bulletpouch/attack_right(mob/user)
 	if(arrows.len)
