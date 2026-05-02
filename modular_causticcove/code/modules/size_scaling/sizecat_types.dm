@@ -50,7 +50,7 @@
 	recipient.add_movespeed_modifier(MOVESPEED_ID_MACROMICRO, update=TRUE, priority=100, multiplicative_slowdown=0.3, movetypes=GROUND) //They're more agile, not faster. Smaller sprite, smaller clickbox. Speed the same as 9 speed base TOTAL.
 	
 	passtable_on(recipient, MAGIC_TRAIT)
-	recipient.pass_flags |= SIZEPASS //OVEdit: More selective flag for micro passing
+	recipient.pass_flags |= SIZEPASS //OV Edit: More selective flag for micro passing
 	//recipient.adjust_skillrank(/datum/skill/misc/sneaking, 1, TRUE) //Sadly might have to keep this gone to prevent weirdness from it being regularly applied and removed? Can't really reasonably remove this after it's been applied...
 	//recipient.adjust_skillrank(/datum/skill/misc/stealing, 1, TRUE)
 
@@ -61,7 +61,7 @@
 	recipient.change_stat(STATKEY_SPD, -2)
 
 	passtable_off(recipient, MAGIC_TRAIT)
-	recipient.pass_flags &= ~SIZEPASS //OVEdit: More selective flag for micro passing
+	recipient.pass_flags &= ~SIZEPASS //OV Edit: More selective flag for micro passing
 
 /datum/sizecat/micro
 	name = "Micro"
@@ -77,7 +77,7 @@
 	recipient.add_movespeed_modifier(MOVESPEED_ID_MACROMICRO, update=TRUE, priority=100, multiplicative_slowdown=1.2, movetypes=GROUND) //OV Edit: Some movespeed, as a treat. - Base slowdown is increased to the equivalent of having -5 speed. With the +5 speed added, it lowers it by .5 for a base total of 1
 	
 	passtable_on(recipient, MAGIC_TRAIT)
-	recipient.pass_flags |= SIZEPASS //OVEdit: More selective flag for micro passing
+	recipient.pass_flags |= SIZEPASS //OV Edit: More selective flag for micro passing
 	//recipient.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
 	//recipient.adjust_skillrank(/datum/skill/misc/stealing, 2, TRUE)
 
@@ -88,4 +88,4 @@
 	recipient.change_stat(STATKEY_SPD, -5)
 
 	passtable_off(recipient, MAGIC_TRAIT)
-	recipient.pass_flags &= ~SIZEPASS //OVEdit: More selective flag for micro passing
+	recipient.pass_flags &= ~SIZEPASS //OV Edit: More selective flag for micro passing
