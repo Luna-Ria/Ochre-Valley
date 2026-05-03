@@ -1811,7 +1811,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/sewing/maiddress
-	name = "servant dress"
+	name = "maid dress"
 	result = list(/obj/item/clothing/suit/roguetown/shirt/dress/maid)
 	reqs = list(/obj/item/natural/cloth = 3,
 				/obj/item/natural/fibers = 1)
@@ -1819,7 +1819,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/sewing/maidhead
-	name = "maid headdress (1 fibers, 1 cloth)"
+	name = "maid headband"
 	result = list(/obj/item/clothing/head/roguetown/maidhead)
 	reqs = list(/obj/item/natural/cloth = 1,
 				/obj/item/natural/fibers = 1)
@@ -1827,7 +1827,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/sewing/maidapron
-	name = "servant apron"
+	name = "maid apron"
 	result = list(/obj/item/clothing/cloak/apron/waist/maid)
 	reqs = list(/obj/item/natural/cloth = 2,
 				/obj/item/natural/fibers = 1)
@@ -2118,7 +2118,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/sewing/maidband
-	name = "maid headband"
+	name = "valorian maid headband"
 	result = list(/obj/item/clothing/head/roguetown/maidband)
 	reqs = list(
 		/obj/item/natural/cloth = 1,
@@ -2127,7 +2127,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/sewing/maiddress
-	name = "maid dress"
+	name = "valorian maid dress"
 	result = list(/obj/item/clothing/suit/roguetown/shirt/dress/maidfancy)
 	reqs = list(
 		/obj/item/natural/cloth = 3,
@@ -2136,7 +2136,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/sewing/maidapron
-	name = "maid apron"
+	name = "valorian maid apron"
 	result = list(/obj/item/clothing/cloak/apron/waist/fancymaid)
 	reqs = list(
 		/obj/item/natural/cloth = 1,
