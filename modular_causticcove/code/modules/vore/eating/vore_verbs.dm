@@ -28,9 +28,10 @@
 	if(!istype(G))
 		to_chat(src,span_warning("You have to have a very strong grip on someone first!"))
 		return FALSE
-	if(G.grab_state != GRAB_NECK)
-		to_chat(src,span_warning("You must have a tighter grip to severely damage this creature!"))
-		return FALSE
+// Removing this check since it doesn't seem to be working.  Neck grabs don't allow bypassing it.
+//	if(G.grab_state != GRAB_NECK)
+//		to_chat(src,span_warning("You must have a tighter grip to severely damage this creature!"))
+//		return FALSE
 
 	return ..(G.grabbed)
 
