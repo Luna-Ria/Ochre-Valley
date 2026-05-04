@@ -109,7 +109,7 @@
 
 
 /datum/book_entry/treasury/budgets
-	name = "06. The Crown's Budgets & Authorisation"
+	name = "06. Budgets, Warrants & Authority"
 
 /datum/book_entry/treasury/budgets/inner_book_html(mob/user)
 	return {"
@@ -127,6 +127,13 @@
 			<li><b>Defense Warrant</b> - a daily Pledge ceiling. Defense commissions issued by the Alderman burn Pledge authority up to this cap, just as the Steward's do. The Alderman may not draw the Crown's Purse for defense, and may not issue Requests.</li>
 		</ul>
 		<p>Both ceilings refresh at each session's resolution. Unspent authorisation does not carry over.</p>
+
+		<h3>Crown Authority</h3>
+		<p>The following titles share full Crown authority - they may petition the trade hall, draw emergency loans, commission defense and blockade writs, and stamp contracts levy-exempt with the signet:</p>
+		<ul>
+			<li>Steward, Clerk, Grand Duke, Hand, Marshal, Councillor, Prince/Princess.</li>
+		</ul>
+		<p>The Steward is the primary officer; the rest substitute when the Steward is absent, dead, or otherwise occupied. A Regent crowned at the Throne inherits the same authority for the duration of their regency.</p>
 		</div>
 	"}
 
@@ -146,7 +153,7 @@
 		</ul>
 
 		<h3>Issue Authority</h3>
-		<p>In addition to the Steward, the Hand, Councillor, Grand Duke / Regent, Marshal and Clerk may also put out commissions and contracts.</p>
+		<p>See <i>Budgets, Warrants & Authority</i> for the full list of titles that may issue commissions.</p>
 
 		<h3>Direct Commission vs Board:</h3>
 		<p>A commission can be posted to the Grand Contract Ledger, or given directly to a bearer. Posting to the board allows anyone to take it, and follow the Fellowship limit for any party taking it. Handing it directly to a bearer is faster and more certain, but risks it being ignored or wasted on someone who can't complete it. The Steward may not take and claim a scroll they have issued themselves.</p>
@@ -157,7 +164,7 @@
 		<h3>Levy Exemption</h3>
 		<p>When the Steward issues a contract, they may mark it Levy Exempt - the bearer pays no Contract Levy on the reward. This costs the Crown only the foregone levy and is useful for sweetening offers to mercenaries or adventurers.</p>
 
-		<p>The Steward also starts with an infinite-use signet ring. The Steward, Grand Duke, Clerk, and Regent can stamp a contract (click it) to make it Levy Exempt after the fact - useful for retroactive bribes.</p>
+		<p>The Steward also starts with an infinite-use signet ring. Any holder of Crown authority (see <i>Budgets, Warrants & Authority</i>) can stamp a contract (click it) to make it Levy Exempt after the fact - useful for retroactive bribes.</p>
 
 		<h3>Region and Reward</h3>
 		<p>Defense commissions pay out in proportion to the threat they spawn. Each threat region carries a <b>reward multiplier</b> (surfaced in the commission UI beside the region name): Azure Basin at x0.75, Azure Grove at x1.0, Azurean Coast at x1.2, Terrorbog / Mount Decapitation / Underdark at x1.5. A Bounty in Terrorbog costs the same draft as a Bounty in Azure Basin - but the Terrorbog commission pays the bearer roughly twice as much. The Steward can use this to steer adventurers toward regions the realm most needs cleared.</p>

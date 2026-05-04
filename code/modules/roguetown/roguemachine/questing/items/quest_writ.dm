@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(quest_scrolls)
 	if(!assigned_quest)
 		to_chat(user, span_warning("The scroll bears no active contract to stamp."))
 		return
-	if(!(user.job in list("Steward", "Clerk", "Grand Duke")))
+	if(!(user.job in GLOB.crown_authority_roles))
 		to_chat(user, span_warning("Only a Steward, Clerk, or the Grand Duke may stamp a writ in the Crown's name."))
 		return
 	if(assigned_quest.levy_exempt)
