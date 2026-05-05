@@ -75,6 +75,8 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 
 // Unclaimed listings past this threshold are rerolled in place, bypassing the per-tick cap.
 #define QUEST_POOL_STALE_THRESHOLD (20 MINUTES)
+// Player-issued listings (rumor/defense) get a longer window before reroll.
+#define QUEST_PLAYER_STALE_THRESHOLD (30 MINUTES)
 
 // Per CKEY cap
 #define QUEST_TAKE_COOLDOWN (10 MINUTES)
