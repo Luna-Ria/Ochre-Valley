@@ -1260,10 +1260,10 @@
 	return sheet.icon_tag(badge_icon_state)
 
 /mob/living/proc/get_pvp_icon()
-	if(!client.prefs?.directory_pvp)
+	if(!mind.directory_pvp)
 		return
 	var/pvp_icon
-	switch(client.prefs.directory_pvp)
+	switch(mind.directory_pvp)
 		if("No PvP")
 			pvp_icon = "pvp_no"
 		if("Ask First")
