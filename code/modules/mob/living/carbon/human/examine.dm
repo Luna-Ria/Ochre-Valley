@@ -67,8 +67,8 @@
 	//OV edit
 	var/pvp_pref = get_pvp_icon()
 	var/pvp_icon
-	if(pvp_pref)
-		pvp_icon = "[SPAN_TOOLTIP("[client.prefs?.directory_pvp]","[get_badge_span("[pvp_pref]")]")]"	
+	if(pvp_pref && mind.directory_pvp)
+		pvp_icon = "[SPAN_TOOLTIP("[mind.directory_pvp]","[get_badge_span("[pvp_pref]")]")]"	
 	//OV edit end
 
 	if(name in unknown_names)
@@ -1260,6 +1260,8 @@
 	return sheet.icon_tag(badge_icon_state)
 
 /mob/living/proc/get_pvp_icon()
+	if(!mind)
+		return
 	if(!mind.directory_pvp)
 		return
 	var/pvp_icon
@@ -1273,6 +1275,8 @@
 	return pvp_icon
 
 /mob/living/proc/build_pref_badges()
+	if(!client)
+		return
 	if(!client.prefs)
 		return
 	var/pref_warning = " - Please check OOC notes for more details, do not rely on badges alone."
