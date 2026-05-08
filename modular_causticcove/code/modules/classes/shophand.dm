@@ -2,7 +2,7 @@
 	name = "Guild Thug"
 	tutorial = "You've been hired by the Merchant's Guild to be their brawn. Valued for your strength and little else, you assist the Merchant in hauling heavy goods, or strong arming potential thiefs."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
+
 	outfit = /datum/outfit/job/roguetown/adventurer/guildthug
 	category_tags = list(CTAG_SHOPHAND)
 	subclass_stats = list(
