@@ -174,7 +174,7 @@
 	gunchannel = SSsounds.random_available_channel()
 
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
-		if(user.get_inactive_held_item() != src) // You have to hold it to load it.
+		if(user.get_inactive_held_item() != src && user.get_active_held_item() != src) // You have to hold it to load it.
 			return
 		if(chambered)
 			to_chat(user, "<span class='warning'>There is already [chambered] in [src]!</span>")
@@ -335,25 +335,17 @@
 		can_spin = FALSE
 
 /obj/item/quiver/bulletpouch/attackby(obj/A, loc, params)
-	if(A.type in subtypesof(/obj/item/ammo_casing/caseless/rogue/bullet))
-		if(arrows.len < max_storage)
-			if(ismob(loc))
-				var/mob/M = loc
-				M.doUnEquip(A, TRUE, src, TRUE, silent = TRUE)
-			else
-				A.forceMove(src)
-			arrows += A
-			update_icon()
-		else
-			to_chat(loc, span_warning("Full!"))
-		return
+	// /obj/item/quiver/attackby(obj/A, loc, params) already handles feeding ammo to the pouch.
 	if(istype(A, /obj/item/gun/ballistic/revolver/grenadelauncher/arquebus))
 		var/obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/B = A
-		if(arrows.len && !B.chambered)
-			for(var/AR in arrows)
-				if(istype(AR, /obj/item/ammo_casing/caseless/rogue/bullet))
-					arrows -= AR
-					B.attackby(AR, loc, params)
-					break
+		if(arrows.len && B.gunpowder && !B.chambered)
+			var/obj/item/ammo_casing/caseless/rogue/AR = pick_ammo(/obj/item/ammo_casing/caseless/rogue/bullet)
+			if(AR)
+				arrows -= AR
+				B.attackby(AR, loc, params)
+				if(ismob(loc))
+					var/mob/M = loc
+					if(HAS_TRAIT(M, TRAIT_COMBAT_AWARE))
+						M.balloon_alert(M, "[length(arrows)] left...")
 		return
 	..()
