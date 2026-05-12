@@ -75,8 +75,9 @@
 	cartridge_wording = "musketball"
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = "modular_causticcove/sound/arquebus/arquefire.ogg"
-	anvilrepair = /datum/skill/craft/weaponsmithing
+	anvilrepair = /datum/skill/craft/engineering
 	smeltresult = /obj/item/ingot/bronze
+	obj_flags = CAN_BE_HIT | UNIQUE_RENAME | CLAMP_BREAK // You need to be able to hit it to repair it. Adding other rogueweapon tags too.
 	bolt_type = BOLT_TYPE_NO_BOLT
 	casing_ejector = FALSE
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
@@ -203,7 +204,6 @@
 			return
 		playsound(src, 'modular_causticcove/sound/arquebus/musketload.ogg',  100)
 		user.visible_message("<span class='notice'>[user] forces [A] down the barrel of [src].</span>")
-		..()
 
 	if(istype(A, /obj/item/powderflask))
 		if(user.get_inactive_held_item() != src) // You have to hold it to load it.
@@ -241,6 +241,7 @@
 			to_chat(user, span_warning("There's already a [R] inside of [src]."))
 			return
 	user.stop_sound_channel(gunchannel)
+	return ..()
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/arquebus/can_shoot()
 	if (!reloaded)
@@ -307,7 +308,6 @@
 	unequip_delay_self = 1.5 SECONDS
 	inv_storage_delay = 2 SECONDS
 	walking_stick = FALSE
-	smeltresult = /obj/item/ash
 	slot_flags = ITEM_SLOT_HIP
 	range = 10
 	onehanded = TRUE
