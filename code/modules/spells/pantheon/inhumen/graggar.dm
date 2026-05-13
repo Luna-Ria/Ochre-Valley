@@ -29,9 +29,21 @@
 	overlay_icon = 'icons/mob/actions/graggarmiracles.dmi'
 	overlay_state = "bloodrage"
 	recharge_time = 5 MINUTES
-	invocations = list("SINISTAR, SHATTER MY BINDS!!", // VERY CLEAR that you are a heretic and VERY clear you've popped
-						"GRAGGAR, GRAGGAR, GRAGGAR!!", // your anti-stun Im Going to Kill You Now spell
-						"I EMBODY THE MOTIVE FORCE!!") // DO NOT add any ambiguious invocations
+	//OV edit - We just prefer this big range of incantations
+	invocations = list("GRAGGAAAAAAAAAAAR!!",
+		"WHERE'S THE DEATH?!!",
+		"YOU! CAN'T!! KILL!!! ME!!!!",
+		"I CAN HEAR EVERYTHING!!",
+		"WE'LL ALL GO TOGETHER!!",
+		"BLOOD AND NOISE, FOREVER PIERCING MY SKULL!!",
+		"I AM THE INSIDE OF THIS WORLD!!",
+		"I TASTE THE GORE! I SMELL THE CRYING! I! WANT! MORE!!",
+		"THE BLOOD IS IN MY EYES!! IT'S WAVES CRASH AGAINST MY FOREHEAD!!",
+		"LOOK AT ME WHEN I SCREAM INTO YOUR SOUL!!",
+		"GRAGGARDAMMERUUUUNG!!" // they took our night awayyy gotterdammeruuungggg
+	)
+	//OV edit end
+						
 	invocation_type = "shout"
 	sound = 'sound/magic/bloodrage.ogg'
 	releasedrain = 10
@@ -93,9 +105,11 @@
 //T1: Call to Slaughter - AoE buff for Inhumen surrounding you, debuff for Pantheoneers
 /datum/action/cooldown/spell/graggar/graggar_battlecry
 	name = "Call to Slaughter"
+	//OV edit
 	desc = "Grants you and all allies nearby a buff to their strength, willpower, and constitution. Debuffs followers of the Ten, but not Psydonites."
-	fluff_desc = "The battlefield quakes with your roar! Shaken to their core, they will prove easy pickings for a worthy champion such as yourself; the power of the Sinistar, unleashed.\
-	SLAUGHTER THE LAMBS - DRINK THEIR MARROW - FEAST UPON THEIR FLESH - LEAVE NO TRACE OF THEIR PATHETIC EXISTENCE! - THE SINISTAR HUNGERS!"
+	fluff_desc = "The battlefield quakes with your roar! Shaken to their core, they will prove easy pickings for a worthy champion such as yourself; the power of the Dark Star, unleashed.\
+	SLAUGHTER THE LAMBS - DRINK THEIR MARROW - FEAST UPON THEIR FLESH - LEAVE NO TRACE OF THEIR PATHETIC EXISTENCE! - THE DARK STAR HUNGERS!"
+	//OV edit end
 	button_icon_state = "call_to_slaughter"
 	sound = 'sound/magic/battle_cry_graggar.ogg'
 	glow_intensity = 0
@@ -107,7 +121,7 @@
 
 	secondary_resource_cost = SPELLCOST_UTILITY_BUFF
 
-	invocations = list("LAMBS TO THE SLAUGHTER!")
+	invocations = list("LAMBS TO THE SLAUGHTER!", "THE DARK STAR IS WATCHING!") //OV EDIT
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE
@@ -175,7 +189,7 @@
 	chargetime = 15
 	recharge_time = 40 SECONDS // no running, super slow. this FUCKS people. lower it if 40 is too much.
 	invocation_type = "shout"
-	invocations = list("BE STILL!!") // VERY loud. do NOT add other invocations, this projectile can FUUUCK people up and needs to be telegraphed.
+	invocations = list("TURN AND FACE THE BLOOD GOD!!") //OV EDIT - VERY loud. do NOT add other invocations, this projectile can FUUUCK people up and needs to be telegraphed.
 	sound = 'sound/magic/blood_net.ogg'
 	range = 8
 
@@ -256,7 +270,7 @@
 	chargetime = 10
 	chargedrain = 0
 	chargedloop = /datum/looping_sound/invokeevil
-	invocations = list("SINISTAR, MAKE THEM BLEED!")
+	invocations = list("SUFFER FOR THE DARK STAR!", "DARK STAR, MAKE THEM BLEED!") //OV EDIT
 	invocation_type = "shout"
 	sound = 'sound/magic/bleed_out.ogg'
 	releasedrain = 30

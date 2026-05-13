@@ -464,7 +464,7 @@
 /obj/item/rogueweapon/handclaw/steel/graggaredged
 	name = "vicious sickleclaw"
 	desc = "A tainted mimicry of Ravox's falx, forever stained with the blood of the one they both cherished above all else. The fury of God, for \
-	just a moment, wilted before the sorrow of Man; before the wounded champion lept forth and drove His blade straight into the Sinistar's eye."
+	just a moment, wilted before the sorrow of Man; before the wounded champion lept forth and drove His blade straight into the Dark Star's eye." //OV edit
 	icon_state = "graggarpatasickle"
 	icon = 'icons/roguetown/weapons/unarmed32.dmi'
 	wdefense = 3
