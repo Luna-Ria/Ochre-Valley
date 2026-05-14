@@ -265,7 +265,7 @@
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/graggar
 	name = "vicious hauberk"
-	desc = "The blessing of a Martyr is nothing, when put before the Sinistar's rage."
+	desc = "The blessing of a Martyr is nothing, when put before the Dark Star's rage." //OV EDIT
 	color = "#ddc0a7"
 	smeltresult = /obj/item/ingot/component/graggar
 	unenchantable = TRUE
