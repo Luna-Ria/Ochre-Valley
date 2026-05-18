@@ -1,3 +1,5 @@
+#define SENTINEL_LEGGY_TYPE "legs"
+
 /obj/item/taur_potion
 	name = "crurahol potion"
 	desc = "A bottle with a snake motif. It seems to slowly refill itself."
@@ -86,6 +88,9 @@
 					color = "#[color]"
 				set_taur_color(color)
 			. = TRUE
+		if("change_taur_type_legs")
+			taur_type = SENTINEL_LEGGY_TYPE
+			. = TRUE
 		if("change_taur_type")
 			var/type = text2path(params["type"])
 			if(!(type in GLOB.taur_types)) // assumption: all taur types are fair game
@@ -131,25 +136,31 @@
 
 /obj/item/taur_potion/proc/transform_target(mob/living/carbon/target)
 	// Lock the settings into local variables so they can't change
-	var/local_taur_type = taur_type
+	var/obj/item/bodypart/taur/local_taur_type = taur_type
 	var/local_taur_color = taur_color
 
-	// Case 1: Has same taur type so we must only update color
+	// Case 1: We want to UNtaur them
+	if(local_taur_type == SENTINEL_LEGGY_TYPE)
+		target.ensure_not_taur()
+		announce_transform(target, "set of regular legs")
+		return
+
+	// Case 2: Has same taur type so we must only update color
 	for(var/obj/item/bodypart/taur/part in target.bodyparts)
 		if(part.type == local_taur_type)
 			part.taur_color = local_taur_color
 			target.regenerate_icons()
-			announce_transform(target, local_taur_type)
+			announce_transform(target, local_taur_type::name)
 			return
 
-	// Case 2: Has different taur type or leggies, either way Taurize will work
+	// Case 3: Has different taur type or leggies, either way Taurize will work
 	target.Taurize(local_taur_type, local_taur_color)
-	announce_transform(target, local_taur_type)
+	announce_transform(target, local_taur_type::name)
 
-/obj/item/taur_potion/proc/announce_transform(mob/living/carbon/target, obj/item/bodypart/taur/local_taur_type)
+/obj/item/taur_potion/proc/announce_transform(mob/living/carbon/target, taur_name)
 	target.Knockdown(2 SECONDS)
-	target.visible_message("[target] morphs and grows a [lowertext(local_taur_type::name)]!", \
-		"You morph and grow a [lowertext(local_taur_type::name)]!", \
+	target.visible_message("[target] morphs and grows a [lowertext(taur_name)]!", \
+		"You morph and grow a [lowertext(taur_name)]!", \
 		"[target] makes horrible squelching noises.")
 
 // Add to loadout

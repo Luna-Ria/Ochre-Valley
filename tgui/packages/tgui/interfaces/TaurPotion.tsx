@@ -73,7 +73,7 @@ export const TaurPotion = () => {
   const { taur_type, taur_color, taurs } = data;
 
   const current_taur_type = taurs.find((v) => v.path === taur_type) || {
-    name: 'Unset',
+    name: 'Regular Legs',
     path: '',
     icon: '',
     icon_state: '',
@@ -95,28 +95,30 @@ export const TaurPotion = () => {
                   </Stack.Item>
                 </Stack>
               </Stack.Item>
-              <Stack.Item basis="33%">
-                <Stack fill align="center" justify="center">
-                  <Stack.Item>
-                    <Stack fill>
-                      <Stack.Item>
-                        <TaurTailIcon
-                          color={taur_color}
-                          taur={current_taur_type}
-                          dir="2"
-                        />
-                      </Stack.Item>
-                      <Stack.Item>
-                        <TaurTailIcon
-                          color={taur_color}
-                          taur={current_taur_type}
-                          dir="4"
-                        />
-                      </Stack.Item>
-                    </Stack>
-                  </Stack.Item>
-                </Stack>
-              </Stack.Item>
+              {current_taur_type.icon ? (
+                <Stack.Item basis="33%">
+                  <Stack fill align="center" justify="center">
+                    <Stack.Item>
+                      <Stack fill>
+                        <Stack.Item>
+                          <TaurTailIcon
+                            color={taur_color}
+                            taur={current_taur_type}
+                            dir="2"
+                          />
+                        </Stack.Item>
+                        <Stack.Item>
+                          <TaurTailIcon
+                            color={taur_color}
+                            taur={current_taur_type}
+                            dir="4"
+                          />
+                        </Stack.Item>
+                      </Stack>
+                    </Stack.Item>
+                  </Stack>
+                </Stack.Item>
+              ) : null}
               <Stack.Item basis="33%">
                 <Stack vertical fill align="flex-end">
                   <Stack.Item>Color</Stack.Item>
@@ -132,6 +134,18 @@ export const TaurPotion = () => {
           <Stack.Item grow>
             <Section fill scrollable>
               <Stack vertical>
+                <Stack.Item>
+                  <CustomImageButton
+                    fluid
+                    image={<Box />}
+                    onClick={() => act('change_taur_type_legs')}
+                    selected={taur_type === 'legs'}
+                  >
+                    <Box align="right" fontSize={1.2}>
+                      Regular Legs
+                    </Box>
+                  </CustomImageButton>
+                </Stack.Item>
                 {taurs.map((tail) => (
                   <Stack.Item key={tail.path}>
                     <TaurTailButton
