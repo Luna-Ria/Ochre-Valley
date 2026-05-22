@@ -61,6 +61,7 @@
 			var/y = input(usr, "Set Y position", "Y Position", 0) as num
 			var/z = input(usr, "Set Z position", "Z Position", 0) as num
 			location = locate(0 + x, 0 + y, 0 + z)
+	var/announce = alert(usr, "Add [C.prefs.real_name] to the actor list? (This will announce their arrival if their role normally would)", "Hide from actor list?", "Yes", "No") == "Yes"
 	if(alert(usr, "You are spawning [C.prefs.real_name]/([C.ckey]) as [selected_title] at ([location.x],[location.y],[location.z]), is this correct?", "Confirmation", "Yes", "Cancel") == "Cancel")
 		return
 	//Actual Spawning stuff
@@ -72,14 +73,52 @@
 	new_character.dna.update_dna_identity()
 	location.JoinPlayerHere(new_character, FALSE)
 	if(C.mob) //Delete whatever they are
-		qdel(C.mob)
+		safe_round_remove(C.mob)
 	new_character.key = C.key
 	new_character.roll_stats(null)
-	apply_full_job_loadout(new_character, selected_job_path)
+	apply_full_job_loadout(new_character, selected_job_path, announce)
 	apply_prefs_sizecat(new_character, C)
 	apply_character_post_equipment(new_character,C)
 	message_admins("[key_name_admin(usr)] has spawned [ADMIN_LOOKUPFLW(new_character)] as [selected_title].")
 	log_admin("[key_name(usr)] has spawned [key_name(new_character)] as [selected_title].")
 	
-
-	
+//Why did this not already exist? Removes a mob from the round, freeing up job slot, effectively far travel
+/proc/safe_round_remove(mob/M, announce = FALSE)
+	var/datum/job/mob_job
+	if(M.mind)
+		mob_job = SSjob.GetJob(M.mind.assigned_role)
+		if(mob_job)
+			mob_job.current_positions = max(0, mob_job.current_positions - 1)
+			var/target_job = SSrole_class_handler.get_advclass_by_name(M.advjob)
+			if(target_job)
+				SSrole_class_handler.adjust_class_amount(target_job, -1)
+	if(length(M.contents))
+		for(var/i in length(M.contents))
+			if(istype(M.contents[i], /obj/item/holder/micro))
+				M.dropItemToGround(M.contents[i], TRUE, TRUE)
+	if(M.mind)
+		M.mind.unknow_all_people()
+		for(var/datum/mind/MF in get_minds())
+			M.mind.become_unknown_to(MF)
+		for(var/datum/bounty/removing_bounty in GLOB.head_bounties)
+			if(removing_bounty.target == M.real_name)
+				GLOB.head_bounties -= removing_bounty
+	if(SSticker.rulermob == M)
+		SSticker.rulermob = null
+	if(SSticker.regentmob == M)
+		SSticker.regentmob = null
+	GLOB.chosen_names -= M.real_name
+	LAZYREMOVE(GLOB.actors_list, M.mobid)
+	LAZYREMOVE(GLOB.roleplay_ads, M.mobid)
+	//No coin forfeiture for admemery, move on to announcing and deleting embeds
+	if(M.job in ANNOUNCE_ON_FAR_TRAVEL_ROLES && announce)
+		var/datum/job/announce_job = SSjob.GetJob(M.job)
+		var/announce_title = announce_job ? announce_job.get_informed_title(M) : M.job
+		scom_announce("[M.real_name] the [announce_title] has left the vicinity of [SSticker.realm_name].")
+	if(istype(M, /mob/living))
+		var/mob/living/L = M
+		if(L.has_embedded_objects())
+			var/list/embeds = L.get_embedded_objects()
+			for(var/thing in embeds)
+				QDEL_NULL(thing)
+	QDEL_NULL(M)

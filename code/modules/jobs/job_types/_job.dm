@@ -305,7 +305,7 @@
 	if(cmode_music)
 		H.cmode_music = cmode_music
 
-	if (!hidden_job)
+	if (!hidden_job && announce) //OV Edit: Don't add unannounced players to manifest
 		var/mob_name = H.real_name
 		var/mob_rank
 		if (obsfuscated_job)
