@@ -33,7 +33,7 @@ GLOBAL_DATUM(admin_manifest, /datum/admin_manifest)
 			var/category = sorted_actors[L.mobid]["category"]
 			var/photo = C.mob?.get_chardirectory_photo()
 			var/afk = C.is_afk() ? "[round(C.is_afk()/600)] Minutes" : "Active"
-			var/mobState = L.stat 
+			var/mobState = L.stat
 			manifest_mobs.Add(list(list(
 				"ckey" = key,
 				"name" = name,
@@ -43,8 +43,8 @@ GLOBAL_DATUM(admin_manifest, /datum/admin_manifest)
 				"afk" = afk,
 				"state" = mobState,
 			)))
-		data["directory"] = manifest_mobs
-		return data
+	data["directory"] = manifest_mobs
+	return data
 /datum/admin_manifest/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
