@@ -59,6 +59,7 @@
 						TRAIT_IGNOREDAMAGESLOWDOWN,
 						TRAIT_NOSTINK,
 						TRAIT_AZURENATIVE,
+						TRAIT_GOODTRAINER,
 	)
 
 	var/trait_1 = pick(possible_traits)
@@ -86,7 +87,7 @@
 		ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 		H.adjust_skillrank(/datum/skill/magic/arcane, rand(1,6), TRUE)
 		if(H.mind)
-			H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = rand(0,2), "minor" = rand(0,3), "utilities" = rand(0,10), "ward" = rand(0,1)))
+			H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = rand(0,1), "minor" = rand(0,2), "utilities" = rand(0,10), "ward" = rand(0,1)))
 
 	if(prob(20))
 		var/datum/devotion/D = new /datum/devotion/(H, H.patron)
@@ -353,6 +354,7 @@
 		/obj/item/rope/chain,
 		/obj/item/rogueweapon/huntingknife/scissors,
 		/obj/item/clothing/mask/cigarette/rollie/cannabis,
+		/obj/item/capture_crystal,
 	)
 	backpack_contents = list(pick(backpack_items),pick(backpack_items),pick(backpack_items))
 	if(prob(50))
@@ -414,4 +416,40 @@
 				/obj/item/rogueweapon/shield/tower/metal,
 				/obj/item/bomb,
 				/obj/item/bouquet,
+				/obj/item/cooking/pan,
+		)
+	if(prob(20))
+		mask = pick(/obj/item/clothing/head/roguetown/roguehood/black,
+			/obj/item/clothing/mask/rogue/duelmask,
+			/obj/item/clothing/mask/rogue/facemask/steel,
+			/obj/item/clothing/mask/rogue/eyepatch,
+			/obj/item/clothing/mask/rogue/wildguard,
+			/obj/item/clothing/head/roguetown/armingcap/padded,
+			/obj/item/clothing/mask/rogue/spectacles,
+		)
+	if(prob(35))
+		head = pick(/obj/item/clothing/head/roguetown/witchhat,
+			/obj/item/clothing/head/roguetown/archercap,
+			/obj/item/clothing/head/roguetown/headband/monk,
+			/obj/item/clothing/head/roguetown/bardhat,
+			/obj/item/clothing/head/roguetown/roguehood/shalal/purple,
+			/obj/item/clothing/head/roguetown/helmet/bronzegladiator,
+			/obj/item/clothing/head/roguetown/mentorhat,
+			/obj/item/clothing/head/roguetown/helmet/leather/volfhelm,
+			/obj/item/clothing/head/roguetown/fedora,
+			/obj/item/clothing/head/roguetown/helmet/tricorn,
+			/obj/item/clothing/head/roguetown/roguehood/shalal/hijab,
+			/obj/item/clothing/head/roguetown/helmet/sallet/visored,
+			/obj/item/clothing/head/roguetown/helmet/heavy/bucket/crusader,
+			/obj/item/clothing/head/roguetown/helmet/heavy/barbute/great,
+			/obj/item/clothing/head/roguetown/helmet/bascinet/pigface,
+			/obj/item/clothing/head/roguetown/helmet/kettle/iron,
+		)
+	if(prob(5))
+		mouth = pick(/obj/item/rogueweapon/huntingknife,
+			/obj/item/clothing/mask/cigarette/pipe/westman,
+			/obj/item/alch/rosa,
+			/obj/item/rogueweapon/stoneaxe/hurlbat,
+			/obj/item/needle,
+			/obj/item/clothing/mask/cigarette/rollie,
 		)
