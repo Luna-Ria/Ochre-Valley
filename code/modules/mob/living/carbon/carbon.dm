@@ -1,8 +1,8 @@
 /mob/living/carbon/Initialize()
 	..()
 
-	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DARKVISION), PROC_REF(on_darkvision_trait_changed))
-	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DARKVISION), PROC_REF(on_darkvision_trait_changed))
+	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_DARKVISION), SIGNAL_ADDTRAIT(TRAIT_ZIZOSIGHT)), PROC_REF(on_darkvision_trait_changed))
+	RegisterSignal(src, list(SIGNAL_REMOVETRAIT(TRAIT_DARKVISION), SIGNAL_REMOVETRAIT(TRAIT_ZIZOSIGHT)), PROC_REF(on_darkvision_trait_changed))
 
 	pain_threshold = STAWIL * 10
 
@@ -17,7 +17,7 @@
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
 
-	UnregisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_DARKVISION), SIGNAL_REMOVETRAIT(TRAIT_DARKVISION)))
+	UnregisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_DARKVISION), SIGNAL_REMOVETRAIT(TRAIT_DARKVISION), SIGNAL_ADDTRAIT(TRAIT_ZIZOSIGHT), SIGNAL_REMOVETRAIT(TRAIT_ZIZOSIGHT)))
 
 	QDEL_LIST(hand_bodyparts)
 	QDEL_LIST(internal_organs)
@@ -841,7 +841,7 @@
 			lighting_alpha = min(lighting_alpha, G.lighting_alpha)
 
 	// OV Edit Start
-	if(HAS_TRAIT(src, TRAIT_DARKVISION))
+	if(HAS_TRAIT(src, TRAIT_DARKVISION) || HAS_TRAIT(src, TRAIT_ZIZOSIGHT))
 		var/perception = clamp(get_stat(STATKEY_PER), 8, 15)
 		// Remap the old PER 10-13 Darksight range across PER 8-15.
 		var/perception_ratio = (perception - 8) / 7
@@ -887,10 +887,6 @@
 
 	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = max(see_in_dark, 8)
-
-	if(HAS_TRAIT(src, TRAIT_ZIZOSIGHT))
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_ZIZOVISION)
 		see_in_dark = max(see_in_dark, 8)
 
 	if(see_override)
