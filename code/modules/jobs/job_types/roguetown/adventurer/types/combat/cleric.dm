@@ -185,7 +185,7 @@
 
 /datum/advclass/cleric/paladin
 	name = "Paladin"
-	tutorial = "You are a warrior of faith, clad in armor and armed with weapons to slay your foes. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself towards fighting the enemies of your order head-on." //caustic edit - the original description doesn't actually fit what the class gets, and makes it seem like you can't be a ascendant paladin, which you can.
+	tutorial = "You are a holy knight, clad in maille and armed with steel. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself towards fighting Psydonia's evils - a longsword in one hand, and a clenched psycross in the other."
 	outfit = /datum/outfit/job/roguetown/adventurer/paladin
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
@@ -212,9 +212,7 @@
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
 		"The Book" = /obj/item/book/rogue/bibble/psy
 	)
-	//Caustic edit begin - description to be more patron-agnostic. Ascendant followers can be paladins too, after all.
-	extra_context = "This subclass chooses an oath upon spawning, your oath determines a general direction for your playstyle. Healer has skills in medicine and is able to diagnose patients, Slayers are better trained in weapon-usage and gain a silver weapon, Bulwarks are trained in the usage of heavy armor."
-	//Caustic edit end
+	extra_context = "This subclass can choose to take one of two holy items to take along: a potion of lifeblood and Novice skills in Medicine, or a silver longsword that gives Journeyman skills in Swordsmanship."
 
 /datum/outfit/job/roguetown/adventurer/paladin/pre_equip(mob/living/carbon/human/H)
 	// This list exists here so it can be overwritten later.
@@ -236,7 +234,7 @@
 		"None"
 	)
 
-	to_chat(H, span_warning("You are a warrior of faith, clad in armor and armed with weapons to slay your foes. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself to fighting the enemies of your faith head-on.")) //caustic edit
+	to_chat(H, span_warning("You are a holy knight, clad in maille and armed with steel. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself towards fighting Psydonia's evils - a longsword in one hand, and a clenched psycross in the other."))
 	belt = /obj/item/storage/belt/rogue/leather
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backr = /obj/item/rogueweapon/shield/iron
@@ -349,60 +347,26 @@
 			if("Axe")
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/stoneaxe/woodcut
-		//Caustic edit begin - Make oaths more impactful and thematic.
-		var/oaths = list("Healer - Medicine & Mirth","Slayer - Silver Weapon","Bulwark - Plate Armor & Shield")
+		var/oaths = list("Cleric - Medicine Training + Supplies","Crusader - Unique Longsword + Surcoat","None")
 		var/oath_choice = input(H, "Choose your OATH.", "PROFESS YOUR BLESSINGS.") as anything in oaths
 		switch(oath_choice)
-			if("Healer - Medicine & Mirth") //renamed from 'cleric'.
-				H.change_stat(STATKEY_INT, 1)
-				H.change_stat(STATKEY_CON, -1)
-				H.adjust_skillrank_up_to(/datum/skill/misc/medicine, SKILL_LEVEL_APPRENTICE, TRUE) // Can start at Journeyman, if you take the 'Physician's Apprentice' virtue.
+			if("Cleric - Medicine Training + Supplies")
+				H.adjust_skillrank_up_to(/datum/skill/misc/medicine, SKILL_LEVEL_APPRENTICE, TRUE)
 				l_hand = /obj/item/needle/thorn/cleric //Unique to the Cleric. Far worse than a traditional iron needle, but better than a regular thorn needle - with 10 uses, instead of 5 (or 20, in the former's case).
-				beltl = /obj/item/reagent_containers/glass/bottle/rogue/healthpot //No needles or cloth, but a basic potion of lifeblood - similar to the Sorcerer's manna potion. Take the 'Physician's Apprentice' virtue for that, uncapped skills, and more.
-				if(!H.mind?.has_spell(/obj/effect/proc_holder/spell/invoked/diagnose/secular) || !H.mind?.has_spell(/obj/effect/proc_holder/spell/invoked/diagnose)) //gives you diagnose if you don't have it already
-					H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
-			if("Bulwark - Plate Armor & Shield") //Most common depiction of paladins. Gets some heavy armor and a better shield.
-				ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
-				H.change_stat(STATKEY_CON, 1)
-				H.change_stat(STATKEY_SPD, -1)
-				backr = /obj/item/rogueweapon/shield/tower/metal
-				armor = /obj/item/clothing/suit/roguetown/armor/plate/iron
-			if("Slayer - Silver Weapon") //supposed to be a sort of proto-exorcist, apparently. Renamed from Crusader and added more weapon choices than just the longsword, but less than an actual exorcist.
-				var/silver = list("Silver Dagger","Silver Longsword","Silver Mace","Silver Warhammer","Silver Morningstar","Silver Whip","Silver War Axe","Silver Spear","Silver Quarterstaff")
-				var/silver_choice = input(H, "Choose your WEAPON.", "PREPARE YOUR ARMS.") as anything in silver //Trimmed down from the exorcist's usual list, only one option of each weapon-type.
-				switch(silver_choice)
-					if("Silver Dagger")
-						H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
-						l_hand = /obj/item/rogueweapon/huntingknife/idagger/silver
-						beltl = /obj/item/rogueweapon/scabbard/sheath
-					if("Silver Longsword")
-						H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
-						l_hand = /obj/item/rogueweapon/sword/long/silver
-						beltl = /obj/item/rogueweapon/scabbard/sword
-					if("Silver Mace")
-						H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
-						l_hand = /obj/item/rogueweapon/mace/steel/silver
-					if("Silver Warhammer")
-						H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
-						l_hand = /obj/item/rogueweapon/mace/warhammer/steel/silver
-					if("Silver Morningstar")
-						H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
-						l_hand = /obj/item/rogueweapon/flail/sflail/silver
-					if("Silver Whip")
-						H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
-						l_hand = /obj/item/rogueweapon/whip/silver
-					if("Silver War Axe")
-						H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
-						l_hand = /obj/item/rogueweapon/stoneaxe/woodcut/silver
-					if("Silver Spear")
-						H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
-						l_hand = /obj/item/rogueweapon/spear/silver
-						r_hand = /obj/item/rogueweapon/scabbard/gwstrap
-					if("Silver Quarterstaff")
-						H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
-						l_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/silver
-						r_hand = /obj/item/rogueweapon/scabbard/gwstrap
-		//Caustic edit end
+				beltl = /obj/item/reagent_containers/glass/bottle/rogue/healthpot //No cloth, but a basic potion of lifeblood - similar to the Sorcerer's manna potion. Take the 'Physician's Apprentice' virtue for that, uncapped skills, and more.
+			if("Crusader - Unique Longsword + Surcoat")
+				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE) 
+				beltl = /obj/item/rogueweapon/sword/long/cleric //Essentially, a silver longsword without the ability to sunder antagonists. Should it deal lesser sunder to mindless unholy foes, later? Perhaps.
+				switch(H.patron?.type)
+					if(/datum/patron/old_god)
+						l_hand = /obj/item/clothing/cloak/tabard/stabard/crusader/t
+					if(/datum/patron/divine/astrata)
+						l_hand = /obj/item/clothing/cloak/tabard/stabard/crusader/t/astrata
+					else
+						l_hand = /obj/item/clothing/cloak/tabard/stabard/crusader/t/undivided
+			if("None")
+				id = /obj/item/clothing/ring/silver/cleric //Minor restoration of the old silver ring that Clerics could get. Worth less than the other two alternatives, but offers a choice for those who want to remain unspecialized.
+
 	H.set_blindness(0)
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
@@ -477,7 +441,7 @@
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
 		"The Book" = /obj/item/book/rogue/bibble/psy
 	)
-	extra_context = "This subclass regenerates Devotion far quicker, but only has access to lesser miracles."
+	extra_context = "This subclass has higher-tier miracles, but regenerates Devotion far slower."
 
 /datum/outfit/job/roguetown/adventurer/cantor/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -632,7 +596,7 @@
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
 		"The Book" = /obj/item/book/rogue/bibble/psy
 	)
-	extra_context = "This subclass has higher-tier miracles, but regenerates Devotion far slower."
+	extra_context = "This subclass regenerates Devotion far quicker, but only has access to lesser miracles."
 
 /datum/outfit/job/roguetown/adventurer/missionary/pre_equip(mob/living/carbon/human/H)
 	..()
