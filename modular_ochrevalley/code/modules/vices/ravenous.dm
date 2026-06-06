@@ -1,7 +1,6 @@
-//Code taken directly from the "Bottomless" Vice from Caustic Cove, modified for linear progression rather than exponential
+/datum/charflaw/ravenous //Code taken directly from the "Bottomless" Vice from Caustic Cove, modified for linear progression rather than exponential
 //The Vice itself
 //We're calling variables that are defined by Caustic Cove's Bottomless vice, so if that vice gets tweaked down the line, this one will need to be updated accordingly!
-/datum/charflaw/ravenous
 	name = "Ravenous"
 	desc = "No matter how much I eat, I still feel empty..."
 //The Vice's workflow, again taken directly from CC but with two minor modifications
