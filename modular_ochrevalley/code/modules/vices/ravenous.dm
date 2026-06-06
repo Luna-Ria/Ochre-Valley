@@ -1,4 +1,4 @@
-/Code taken directly from the "Bottomless" Vice from Caustic Cove, modified for linear progression rather than exponential
+//Code taken directly from the "Bottomless" Vice from Caustic Cove, modified for linear progression rather than exponential
 /datum/charflaw/ravenous //The Vice itself
 	name = "Ravenous"
 	desc = "No matter how much I eat, I still feel empty..."
