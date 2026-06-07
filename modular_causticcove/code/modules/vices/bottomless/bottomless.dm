@@ -1,6 +1,6 @@
 /datum/charflaw/bottomless
 	name = "Bottomless"
-	desc = "More food! MORE!"
+	desc = "My hunger grows exponentially and without limit! I need more food! MORE!" //OV Edit - Description expanded upon to differentiate from Ravenous
 	var/last_check = 0
 
 /datum/charflaw/bottomless/flaw_on_life(mob/user)

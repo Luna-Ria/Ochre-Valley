@@ -1,6 +1,6 @@
 /datum/charflaw/ravenous //Code taken directly from the "Bottomless" Vice from Caustic Cove, modified for linear progression rather than exponential
 	name = "Ravenous" //The Vice itself
-	desc = "No matter how much I eat, I still feel empty..."
+	desc = "My hunger constantly grows, up to a point. Even when I should be full, I still feel empty..."
 	var/last_check = 0
 
 /datum/charflaw/ravenous/flaw_on_life(mob/user) //The Vice's workflow, again taken directly from CC but with two minor modifications
