@@ -816,7 +816,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 //OV edit
 /client/verb/toggle_PQ() // Totally hides PQ values from yourself to prevent bad brain.
-	set category = "Options"
+	set category = "Preferences.Options"
 	set name = "Hide PQ"
 	if(prefs)
 		var/check1 = tgui_alert(src, "This will permanently hide your player quality values and they cant be reenabled without contancting staff. Are you sure?", "Hide PQ", list("Yes, hide them", "No"))
