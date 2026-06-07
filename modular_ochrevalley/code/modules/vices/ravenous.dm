@@ -16,7 +16,7 @@
 		return
 	last_check = world.time
 		if(user.maxnutrition < 7000) //This is the Cap that prevents it from scaling beyond a value: 6k-8k value suggested by Ryumi
-	user.maxnutrition += (user.maxnutrition + 10) //Calling a CC variable
+	user.maxnutrition += user.maxnutrition * 0.1 //Calling a CC variable
 	if(user.maxnutrition * 0.8 > user.nutrition)
 		user.add_stress(/datum/stressevent/glutton) //Calling a CC stressevent
 	else
