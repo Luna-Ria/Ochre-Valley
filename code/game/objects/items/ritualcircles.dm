@@ -1485,6 +1485,9 @@
 	var/riteselection = input(user, "Rituals of Progress", src) as null|anything in zizorites
 	switch(riteselection)
 		if("Rite of Armaments")
+			if(user.has_status_effect(/datum/status_effect/debuff/armamentrites))
+				to_chat(user, span_warning("I am not yet ready to perform this rite."))
+				return
 			var/onrune = view(1, loc)
 			var/list/folksonrune = list()
 			for(var/mob/living/carbon/human/persononrune in onrune)
@@ -1525,11 +1528,10 @@
 			if(!do_after(user, 5 SECONDS))
 				return
 			icon_state = "zizo_active"
-			var/rite_cooldown = /datum/status_effect/debuff/ritesexpended
+			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
 			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
 			if(is_heretic)
-				rite_cooldown = /datum/status_effect/debuff/ritesexpended/heretic
-			user.apply_status_effect(rite_cooldown)
+				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
 			if(is_heretic && target != user)
 				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
 				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
@@ -1648,6 +1650,9 @@
 	var/riteselection = input(user, "Rituals of Transaction", src) as null|anything in matthiosrites
 	switch(riteselection) // put ur rite selection here
 		if("Rite of Armaments")
+			if(user.has_status_effect(/datum/status_effect/debuff/armamentrites))
+				to_chat(user, span_warning("I am not yet ready to perform this rite."))
+				return
 			var/onrune = view(1, loc)
 			var/list/folksonrune = list()
 			for(var/mob/living/carbon/human/persononrune in onrune)
@@ -1668,11 +1673,10 @@
 			if(!do_after(user, 5 SECONDS))
 				return
 			icon_state = "matthios_active"
-			var/rite_cooldown = /datum/status_effect/debuff/ritesexpended
+			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
 			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
 			if(is_heretic)
-				rite_cooldown = /datum/status_effect/debuff/ritesexpended/heretic
-			user.apply_status_effect(rite_cooldown)
+				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
 			if(is_heretic && target != user)
 				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
 				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
@@ -1827,6 +1831,9 @@
 	var/riteselection = input(user, "Rituals of Violence", src) as null|anything in graggarrites
 	switch(riteselection) // put ur rite selection here
 		if("Rite of Armaments")
+			if(user.has_status_effect(/datum/status_effect/debuff/armamentrites))
+				to_chat(user, span_warning("I am not yet ready to perform this rite."))
+				return
 			var/onrune = view(1, loc)
 			var/list/folksonrune = list()
 			for(var/mob/living/carbon/human/persononrune in onrune)
@@ -1862,11 +1869,10 @@
 			if(!do_after(user, 5 SECONDS))
 				return
 			icon_state = "graggar_active"
-			var/rite_cooldown = /datum/status_effect/debuff/ritesexpended
+			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
 			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
 			if(is_heretic)
-				rite_cooldown = /datum/status_effect/debuff/ritesexpended/heretic
-			user.apply_status_effect(rite_cooldown)
+				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
 			if(is_heretic && target != user)
 				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
 				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
@@ -1970,6 +1976,7 @@
 	)
 
 	to_chat(world, span_danger("A war ritual has been completed! Goblin portals begin to tear open across the land!"))
+	SSParticleWeather?.run_weather(pick(/datum/particle_weather/blood_rain_gentle, /datum/particle_weather/blood_rain_storm))
 	playsound(loc, 'sound/magic/bloodrage.ogg', 100, FALSE, -1)
 	var/datum/round_event_control/gobinvade/E = new()
 	E.req_omen = FALSE
