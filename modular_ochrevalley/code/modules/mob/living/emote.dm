@@ -33,3 +33,9 @@
 	set name = "Hiccup"
 	set category = "Noises"
 	emote("hiccup", intentional = TRUE)
+
+/datum/emote/living/hiccup/hic
+	key = "hic"
+
+/datum/emote/living/burp/belch
+	key = "belch"
