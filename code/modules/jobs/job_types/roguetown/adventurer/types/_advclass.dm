@@ -151,6 +151,10 @@
 	if(applies_post_equipment)
 		apply_character_post_equipment(H)
 
+	// OV Edit Start
+	H.update_sight()
+	// OV Edit End
+
 /datum/advclass/proc/post_equip(mob/living/carbon/human/H)
 	addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, add_credit), TRUE), 20)
 	if(cmode_music)
@@ -226,4 +230,3 @@
 
 //Final proc in the set for really silly shit
 ///datum/advclass/proc/extra_slop_proc_ending(mob/living/carbon/human/H)
-

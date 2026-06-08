@@ -78,11 +78,14 @@
 	STAWIL = owner.current.STAWIL
 
 /datum/antagonist/lich/proc/set_stats()
+	// OV Edit Start
 	owner.current.STASTR = src.STASTR
 	owner.current.STAPER = src.STAPER
 	owner.current.STAINT = src.STAINT
 	owner.current.STASPD = src.STASPD
 	owner.current.STAWIL = src.STAWIL
+	owner.current.update_sight()
+	// OV Edit End
 
 /datum/antagonist/lich/proc/skele_look()
 	var/mob/living/carbon/human/L = owner.current

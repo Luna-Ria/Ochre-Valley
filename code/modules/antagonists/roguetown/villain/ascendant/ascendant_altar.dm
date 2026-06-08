@@ -75,6 +75,9 @@ GLOBAL_LIST_INIT(capstone_pool, list(
 	user.STAWIL += 2
 	user.STASPD += 2
 	user.STALUC += 2
+	// OV Edit Start
+	user.update_sight()
+	// OV Edit End
 
 	//check what ascendpoint they are on and add that trait
 	switch(ascendpoints)
@@ -141,6 +144,9 @@ GLOBAL_LIST_INIT(capstone_pool, list(
 	user.STAWIL += 2
 	user.STASPD += 2
 	user.STALUC += 2
+	// OV Edit Start
+	user.update_sight()
+	// OV Edit End
 
 	switch(ascend_stage)
 		if(1)
@@ -215,6 +221,9 @@ GLOBAL_LIST_INIT(capstone_pool, list(
 			user.STAWIL += 10
 			user.STASPD += 10
 			user.STALUC += 6
+			// OV Edit Start
+			user.update_sight()
+			// OV Edit End
 
 			heavensaysdanger() //Roger, our deal is honored; you will be rewarded in heaven.
 			addomen(ASCEND_ASCENDANT)

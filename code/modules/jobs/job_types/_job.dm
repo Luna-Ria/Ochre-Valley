@@ -410,6 +410,9 @@
 			H.equipOutfit(outfit_override ? outfit_override : outfit, visualsOnly)
 
 	H.dna.species.after_equip_job(src, H, visualsOnly)
+	// OV Edit Start
+	H.update_sight()
+	// OV Edit End
 
 	if(!visualsOnly && announce)
 		announce(H)

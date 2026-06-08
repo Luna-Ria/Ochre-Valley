@@ -158,6 +158,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/no_language_icon = FALSE
 	var/no_redflash = FALSE
 	var/no_storyteller_events = FALSE
+	var/darkvision_accessibility = 0
 
 	var/lastclass
 
@@ -264,14 +265,14 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/examine_theme
 
 	/// Whether we can see the feint HUD bar.
-	var/feint_hud = FALSE 
+	var/feint_hud = FALSE
 
 	//OV edit
 	var/badge_gng = "No"
 	var/badge_vore = "Unset"
 	var/badge_willing = "Unset"
 	var/badge_sexuality = "Unset"
-	var/badge_erp = "No" 
+	var/badge_erp = "No"
 	var/badge_lean = "Unset"
 	var/badge_type = "Unset"
 	//OV edit end
@@ -314,7 +315,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 		directory_sexualitytag = "Unset"
 	if(!directory_pvp)
 		directory_pvp = "No PvP"
-	
+
 	if(!badge_gng)
 		badge_gng = "No"
 	if(!badge_vore)
@@ -324,7 +325,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	if(!badge_sexuality)
 		badge_sexuality = "Unset"
 	if(!badge_erp)
-		badge_erp = "No" 
+		badge_erp = "No"
 	if(!badge_lean)
 		badge_lean = "Unset"
 	if(!badge_type)
@@ -536,7 +537,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				dat += "<b>Race Bonus:</b> <a href='?_src_=prefs;preference=race_bonus_select;task=input'>[race_bonus_display ? "[race_bonus_display]" : "None"]</a><BR>"
 			else
 				race_bonus = null
-			
+
 			var/datum/language/selected_lang
 			var/lang_output = "None"
 			if(ispath(extra_language, /datum/language))
@@ -659,6 +660,10 @@ GLOBAL_LIST_EMPTY(chosen_names)
 					virtue_html += "   <a href='?_src_=prefs;preference=subvirtue_two;task=input'>[(virtuetwo.choice_costs[(virtuetwo.picked_choices.len + 1)] <= 0) ? "<font color = '#a08357'>" : ""]Pick Bonus[(virtuetwo.choice_costs[(virtuetwo.picked_choices.len + 1)] <= 0) ? "</font>" : ""] [(virtuetwo.choice_costs[(virtuetwo.picked_choices.len + 1)] > 0) ? "([virtuetwo.choice_costs[(virtuetwo.picked_choices.len + 1)]] TRI)" : ""] </a><br>"
 			else
 				virtuetwo = GLOB.virtues[/datum/virtue/none]
+			///CC Edit
+			// dat += get_extra_virtue_htmlpick()
+			///CC Edit End
+
 			var/virtue_fieldset
 			if(statpack.virtuous)
 				virtue_fieldset += "<fieldset style='border: 1px solid ["#a08357"]; display: inline'>"
@@ -689,12 +694,12 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				if(istype(cf, /datum/charflaw/averse))
 					has_averse = TRUE
 					break
-			
+
 			if(has_averse)
 				if(!averse_chosen_faction)
 					averse_chosen_faction = "Inquisition"
 				dat += "<b>Loathed Group:</b> <a href='?_src_=prefs;preference=charflaw_averse_choice;task=input'>[averse_chosen_faction]</a><BR>"
-			
+
 			//OV edit
 			var/has_dendor_touched = FALSE
 			for(var/datum/charflaw/cf in charflaws)
@@ -813,7 +818,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<br><b>Loadout:</b> <a href='?_src_=prefs;preference=open_loadout;task=input'>Open Menu</a>"
 			//OV edit
 			//Character directory
-			
+
 			dat += "<br><br><b>Show In Directory:</b> <a href='?_src_=prefs;preference=show_in_directory;task=input'>[show_in_directory ? "Yes" : "No"]</a>"
 			dat += "<br><b>Vore Pref Tag:</b> <a href='?_src_=prefs;preference=directory_tag;task=input'>[directory_tag || "Unset"]</a>"
 			dat += "<br><b>ERP Pref Tag:</b> <a href='?_src_=prefs;preference=directory_erptag;task=input'>[directory_erptag || "Unset"]</a>"
@@ -1732,7 +1737,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 		if(!badge_sexuality)
 			badge_sexuality = "Unset"
 		if(!badge_erp)
-			badge_erp = "No" 
+			badge_erp = "No"
 		if(!badge_lean)
 			badge_lean = "Unset"
 		if(!badge_type)
@@ -1923,7 +1928,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ', . and ,.</font>")
 
-	
+
 				if("nickname")
 					var/new_name = tgui_input_text(user, "Choose your character's nickname (For Highlighting):", "NICKNAME",  encode = FALSE)
 					if(new_name)
@@ -2790,13 +2795,13 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					var/choice = tgui_input_list(user, "Who do you loathe?", "AVERSION", GLOB.averse_factions)
 					if(choice)
 						averse_chosen_faction = choice
-				
+
 				//OV edit
 				if("charflaw_cursed_animal_choice")
 					var/choice = tgui_input_list(user, "Which animal are you cursed to be? NOTE: All animals have the same stats, this is a cosmetic choice.", "DENDOR TOUCHED", GLOB.dendor_touched_animals)
 					if(choice)
 						cursed_animal = choice
-				
+
 				if("charflaw_cursed_animal_colour")
 					var/new_animal_colour = color_pick_sanitized(user, "Choose your character's cursed animal form color. NOTE: We recommend using light shades for colours as they add ontop of existing sprite colours.", "Character Preference","[cursed_animal_colour]")
 					if(new_animal_colour)
@@ -2962,7 +2967,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					var/phobiaType = input(user, "What are you scared of?", "Character Preference", phobia) as null|anything in SStraumas.phobia_types
 					if(phobiaType)
 						phobia = phobiaType
-				
+
 				//OV edit
 				if("show_in_directory")
 					show_in_directory = !show_in_directory
@@ -3002,7 +3007,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					if(!isnull(new_dir_ad))
 						set_character_ad_value(ishuman(user) ? user : null, src, user?.mind, new_dir_ad)
 					// OV Edit End
-				
+
 				//OV edit end
 
 		else
@@ -3305,7 +3310,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 				//	pickupable = !pickupable
 				//Caustic edit end
 
-				
+
 
 	ShowChoices(user)
 	return 1
@@ -3425,7 +3430,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	character.ooc_notes = ooc_notes
 	character.nsfwflavortext = nsfwflavortext
 	character.erpprefs = erpprefs
-	
+
 	// Copy the cached version
 	character.flavortext_cached = flavortext_cached
 	character.ooc_notes_cached = ooc_notes_cached
