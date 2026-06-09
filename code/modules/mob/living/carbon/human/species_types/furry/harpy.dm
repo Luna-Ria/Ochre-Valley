@@ -4,7 +4,7 @@
 /datum/species/harpy
 	name = "Harpy"
 	id = "harpy"
-	base_name = "Harpy"
+	base_name = "Beastvolk"
 	desc = "Harpies, or less ceremoniously known as 'magpies,' resemble the despised hollow-kin in appearance at first glance. \
 	One would rightfully assume they are similar in nature- with accuracy even, much to the harpies' chagrin. \
 	Harpies have been uplifted and reconnected to divinity by Eora, having developed culture of music and song which caught the attention of such a goddess. \
@@ -29,8 +29,8 @@
 	limbs_icon_f = 'icons/roguetown/mob/bodies/f/harpy.dmi'
 	dam_icon = 'icons/roguetown/mob/bodies/dam/dam_male.dmi'
 	dam_icon_f = 'icons/roguetown/mob/bodies/dam/dam_female.dmi'
-	soundpack_m = /datum/voicepack/male
-	soundpack_f = /datum/voicepack/female
+	soundpack_m = /datum/voicepack/male/harpy
+	soundpack_f = /datum/voicepack/female/harpy
 	stress_examine = TRUE
 	stress_desc = span_red("Farking birdbrains...")
 

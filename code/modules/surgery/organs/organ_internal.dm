@@ -49,7 +49,7 @@
 	var/food_type = /obj/item/reagent_containers/food/snacks/organ
 	/// Whether this organ has ever been inside a mob
 	var/had_owner = FALSE
-
+	/// Whether or not this organ should be regenerated at /datum/job/proc/equip() in _job.dm via /mob/living/carbon/proc/apply_organ_stuff()
 	var/should_regenerate = FALSE
 
 	grid_width = 32
@@ -411,6 +411,13 @@
 		if(!getorganslot(ORGAN_SLOT_EARS))
 			var/obj/item/organ/ears/ears = new()
 			ears.Insert(src)
+
+/mob/living/carbon/proc/apply_organ_stuff()
+	if(dna?.species)
+		dna.species.apply_organ_stuff_species(src)
+		return
+	else
+		regenerate_organs()
 
 ///Used as callbacks by object pooling
 /obj/item/organ/proc/exit_wardrobe()

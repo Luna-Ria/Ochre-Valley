@@ -15,7 +15,8 @@
 	///Whether the owner of wings has flight thanks to the wings
 	var/granted_flight
 
-//TODO: Well you know what this flight stuff is a bit complicated and hardcoded, this is enough for now
+	icon = 'icons/mob/sprite_accessory/wings/wings_64x32.dmi'
+	icon_state = "harpyfolded_FRONT"
 
 /obj/item/organ/wings/moth
 	name = "fluvian wings"

@@ -44,7 +44,7 @@
 	var/atom/movable/AM = parent
 	M.set_glide_size(AM.glide_size)
 	M.updating_glide_size = FALSE
-	handle_vehicle_offsets()
+	handle_vehicle_offsets(M)
 
 /datum/component/riding/proc/handle_vehicle_layer()
 	var/atom/movable/AM = parent
@@ -62,10 +62,11 @@
 /datum/component/riding/proc/vehicle_moved(datum/source)
 	var/atom/movable/AM = parent
 	AM.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
+	var/mob/living/rider
 	for(var/mob/M in AM.buckled_mobs)
 		if(!istype(M, /mob/living))
 			continue
-		var/mob/living/rider = M
+		rider = M
 		ride_check(M)
 		M.set_glide_size(AM.glide_size)
 		if(rider.m_intent == MOVE_INTENT_RUN)
@@ -76,7 +77,7 @@
 				riding_xp_move_counter = 0
 		else
 			riding_xp_move_counter = 0					 	// Resets the counter if you're not running while riding.
-	handle_vehicle_offsets()
+	handle_vehicle_offsets(rider)
 	handle_vehicle_layer()
 
 /datum/component/riding/proc/ride_check(mob/living/M)
@@ -92,7 +93,7 @@
 	var/atom/movable/AM = parent
 	AM.unbuckle_mob(M)
 
-/datum/component/riding/proc/handle_vehicle_offsets()
+/datum/component/riding/proc/handle_vehicle_offsets(mob/living/driver)
 	var/atom/movable/AM = parent
 	var/AM_dir = "[AM.dir]"
 	var/passindex = 0
@@ -105,7 +106,7 @@
 					has_fixedeye = TRUE
 			passindex++
 			var/mob/living/buckled_mob = m
-			var/list/offsets = get_offsets(passindex)
+			var/list/offsets = get_offsets(passindex, driver)
 			var/rider_dir = get_rider_dir(passindex)
 			if(!has_fixedeye)
 				buckled_mob.setDir(rider_dir)
@@ -264,7 +265,7 @@
 	. = ..()
 	var/mob/living/carbon/human/H = parent
 	var/amt2use = HUMAN_CARRY_SLOWDOWN
-	var/reqstrength = 10
+	var/reqstrength = HAS_TRAIT(H, TRAIT_MOUNTABLE) ? 0 : 10
 	if(H.r_grab && H.l_grab)
 		if(H.r_grab.grabbed == M)
 			if(H.l_grab.grabbed == M)
