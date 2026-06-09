@@ -442,11 +442,11 @@ GLOBAL_LIST_INIT(psydonite_aggro, world.file2list("modular_ochrevalley/strings/r
 	desc = "A massive snarling beast of mangy fur and yellowed teeth. This volf is not only larger than most, it looks more aggressive, faster and more dangerous than any other."
 	gender = FEMALE
 	move_to_delay = 2
-	melee_damage_lower = 30
-	melee_damage_upper = 45
+	melee_damage_lower = 35
+	melee_damage_upper = 50
 	turns_per_move = 3
-	health = 400
-	maxHealth = 400
+	health = 600
+	maxHealth = 600
 	STACON = 16
 	STASTR = 16
 	STASPD = 20
