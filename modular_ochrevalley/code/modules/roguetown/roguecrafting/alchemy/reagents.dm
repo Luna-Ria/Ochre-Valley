@@ -37,6 +37,5 @@
 		M.resize(M.size_multiplier-0.01) //Decrease by 1% size per tick.
 	else if(M.size_multiplier < 1)
 		M.resize(M.size_multiplier+0.01) //Increase 1% per tick.
-	return
 	. = ..()
 	
