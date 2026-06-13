@@ -443,6 +443,11 @@
 	body_parts_covered = NECK
 	blocksound = PLATEHIT
 
+//OV Add Start
+/obj/item/clothing/neck/roguetown/gorget/cursed_collar/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
+//OV Add End
+
 /obj/item/clothing/neck/roguetown/psicross
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	name = "psycross"

@@ -514,6 +514,11 @@
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 1
 
+//OV Add Start
+/obj/item/clothing/head/roguetown/helmet/tricorn/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
+//OV Add End
+
 
 /obj/item/clothing/head/roguetown/helmet/tricorn/skull
 	icon_state = "tricorn_skull"
