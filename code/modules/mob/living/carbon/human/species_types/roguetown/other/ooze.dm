@@ -173,7 +173,8 @@
 	
 	mechanics_explanations = list("Have no bones to break. However, upon suffering a severe blunt wound, or when a limb would experience a bone fracture, the limb melts. Lost limbs similarly melt off.",
 		"Can regenerate lost limbs by sleeping, at a great cost to their bodily nutrition.",
-		"Have uniquely colored blood that matches the color of their bodies.")
+		"Have uniquely colored blood that matches the color of their bodies.",
+		"Upon dying, they become \"suffering oozes\"; simple creechers which are unable to do much more than move around and attack things. They may ONLY be revived by either resurrection miracles or the Fulmenor Chair, (the revival chair utilized by apothecaries and physicians in the Clinic.)") // OV Add
 
 ////// ORGAN SPRITES, provided by VelSlime
 /obj/item/organ/brain/ooze
