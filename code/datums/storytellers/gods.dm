@@ -28,7 +28,7 @@
 
 /datum/storyteller/psydon
 	name = "Psydon"
-	vote_desc = "Peace reigns. No villains will be present. His children can rest easy, for they have earned their respite"
+	vote_desc = "Peace reigns. No villains will be present except for wretches. His children can rest easy, for they have earned their respite" // OV Edit: Specify that wretches are okay
 	desc = "Mundane and moderate events fire 1.2x more often. No antagonists, no divine intervention. Gnolls absent."
 	welcome_text = "A temperate breeze rolls through the quiet streets.."
 	weight = 6
