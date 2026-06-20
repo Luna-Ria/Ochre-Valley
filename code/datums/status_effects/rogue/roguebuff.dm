@@ -9,6 +9,7 @@
 	duration = 5 MINUTES
 
 /datum/status_effect/buff/drunk/on_creation(mob/living/new_owner)
+	new_owner.sate_addiction(/datum/charflaw/addiction/alcoholic)
 	if(HAS_TRAIT(new_owner, TRAIT_NOHUNGER))
 		return FALSE
 	. = ..()
@@ -1908,6 +1909,7 @@
 
 /datum/status_effect/buff/adrenaline_rush
 	id = "adrrush"
+	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/buff/adrenaline_rush
 	duration = 18 SECONDS
 	examine_text = "SUBJECTPRONOUN is amped up!"
@@ -1926,173 +1928,23 @@
 
 /datum/status_effect/buff/adrenaline_rush/on_remove()
 	. = ..()
+	clear_adrenaline_rush()
+
+/datum/status_effect/buff/adrenaline_rush/be_replaced()
+	clear_adrenaline_rush()
+	return ..()
+
+/datum/status_effect/buff/adrenaline_rush/proc/clear_adrenaline_rush()
 	REMOVE_TRAIT(owner, TRAIT_ADRENALINE_RUSH, INNATE_TRAIT)
 	var/mob/living/carbon/human/human = owner
 	if(istype(human))
 		human.pain_threshold -= 50
 
-//OV ADD - Empowerment Section //OV Edit AP Merge 4.2.26 - Commented Out Pending Rework
-/* /datum/status_effect/buff/magic/strength
-	id = "strength"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/strength
-	effectedstats = list("strength" = 3)
-	duration = 20 MINUTES
+/datum/status_effect/buff/adrenaline_rush/ranged
+	effectedstats = list(STATKEY_SPD = 2)
 
-/datum/status_effect/buff/magic/strength/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/strength_lesser))
-		owner.remove_status_effect(/datum/status_effect/buff/magic/strength_lesser)
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/strength
-	name = "arcane reinforced strength"
-	desc = "I am magically strengthened."
-	icon_state = "buff"
-
-/datum/status_effect/buff/magic/strength_lesser
-	id = "lesser strength"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/strength/lesser
-	effectedstats = list("strength" = 1)
-	duration = 20 MINUTES
-
-/datum/status_effect/buff/magic/strength_lesser/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/strength))
-		return FALSE
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/strength/lesser
-	name = "lesser arcane strength"
-	desc = "I am magically strengthened."
-	icon_state = "buff"
-
-
-/datum/status_effect/buff/magic/speed
-	id = "speed"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/speed
-	effectedstats = list("speed" = 3)
-	duration = 20 MINUTES
-
-/datum/status_effect/buff/magic/speed/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/speed_lesser))
-		owner.remove_status_effect(/datum/status_effect/buff/magic/speed_lesser)
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/speed
-	name = "arcane swiftness"
-	desc = "I am magically swift."
-	icon_state = "buff"
-
-/datum/status_effect/buff/magic/speed_lesser
-	id = "lesser speed"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/speed/lesser
-	effectedstats = list("speed" = 1)
-	duration = 20 MINUTES
-
-/datum/status_effect/buff/magic/speed_lesser/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/speed))
-		return FALSE
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/speed/lesser
-	name = "arcane swiftness"
-	desc = "I am magically swift."
-	icon_state = "buff"
-
-/datum/status_effect/buff/magic/willpower
-	id = "willpower"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/willpower
-	effectedstats = list("willpower" = 3)
-	duration = 20 MINUTES
-
-/datum/status_effect/buff/magic/willpower/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/willpower_lesser))
-		owner.remove_status_effect(/datum/status_effect/buff/magic/willpower_lesser)
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/willpower
-	name = "arcane willpower"
-	desc = "I am magically resilient."
-	icon_state = "buff"
-
-/datum/status_effect/buff/magic/willpower_lesser
-	id = "lesser willpower"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/willpower/lesser
-	effectedstats = list("willpower" = 1)
-	duration = 20 MINUTES
-
-/datum/status_effect/buff/magic/willpower_lesser/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/willpower))
-		return FALSE
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/willpower/lesser
-	name = "lesser arcane willpower"
-	desc = "I am magically resilient."
-	icon_state = "buff"
-
-/datum/status_effect/buff/magic/constitution
-	id = "constitution"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/constitution
-	effectedstats = list("constitution" = 3)
-	duration = 20 MINUTES
-
-/datum/status_effect/buff/magic/constitution/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/constitution_lesser))
-		owner.remove_status_effect(/datum/status_effect/buff/magic/constitution_lesser)
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/constitution
-	name = "arcane constitution"
-	desc = "I feel reinforced by magick."
-	icon_state = "buff"
-
-/datum/status_effect/buff/magic/constitution_lesser
-	id = "lesser constitution"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/constitution/lesser
-	effectedstats = list("constitution" = 1)
-	duration = 20 MINUTES
-
-/datum/status_effect/buff/magic/constitution_lesser/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/constitution))
-		return FALSE
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/constitution/lesser
-	name = "lesser arcane constitution"
-	desc = "I feel reinforced by magick."
-	icon_state = "buff"
-
-/datum/status_effect/buff/magic/perception
-	id = "perception"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/perception
-	effectedstats = list("perception" = 3)
-	duration = 20 MINUTES
-
-/datum/status_effect/buff/magic/perception/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/perception_lesser))
-		owner.remove_status_effect(/datum/status_effect/buff/magic/perception_lesser)
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/perception
-	name = "arcane perception"
-	desc = "I can see everything."
-	icon_state = "buff"
-
-/datum/status_effect/buff/magic/perception_lesser
-	id = "lesser perception"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magic/perception/lesser
-	effectedstats = list("perception" = 1)
-	duration = 20 MINUTES
-
-/datum/status_effect/buff/magic/perception_lesser/on_apply()
-	if(owner.has_status_effect(/datum/status_effect/buff/magic/perception))
-		return FALSE
-	return ..()
-
-/atom/movable/screen/alert/status_effect/buff/magic/perception/lesser
-	name = "lesser arcane perception"
-	desc = "I can see somethings."
-	icon_state = "buff" */
-//OV Add End - Empowerment Section
+/datum/status_effect/buff/adrenaline_rush/melee
+	effectedstats = list(STATKEY_WIL = 1, STATKEY_CON = 1)
 
 /datum/status_effect/buff/nocblessing
 	id = "nocblessing"
@@ -2803,3 +2655,32 @@
 	return ..()
 
 #undef INVIGORATION_FILTER
+
+
+//overclock buff for prosthetics
+/atom/movable/screen/alert/status_effect/buff/overclock
+	name = "Overclocked"
+	desc = "You are pushing your prosthetics to their limits. But you may break something..."
+	icon_state = "buff"
+
+/datum/status_effect/buff/overclock
+	id = "overclock"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/overclock
+	duration = 2 MINUTES
+	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/buff/overclock/on_creation(mob/living/new_owner, prosthetic_arms, prosthetic_legs)
+	effectedstats = list()
+	if(prosthetic_arms > 0)
+		effectedstats[STATKEY_STR] = prosthetic_arms
+	if(prosthetic_legs > 0)
+		effectedstats[STATKEY_SPD] = prosthetic_legs
+	return ..()
+
+/datum/status_effect/buff/overclock/on_apply()
+	. = ..()
+	to_chat(owner, span_warning("The interals of my prosthetics wind up faster, vibrating as they work harder for a little while."))
+
+/datum/status_effect/buff/overclock/on_remove()
+	. = ..()
+	to_chat(owner, span_notice("I feel the hum of my prosthetics slow down, they need time to recharge."))
