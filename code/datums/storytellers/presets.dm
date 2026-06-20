@@ -16,7 +16,6 @@
 	welcome_text = "A temperate breeze rolls through the quiet streets.."
 	color_theme = "#80ced8"
 	preset_pool = GAMEMODE_POOL_EXTENDED
-	always_votable = FALSE //OV Edit
 	block_hard = TRUE
 	block_soft = TRUE
 	allow_dreamwalker = FALSE
