@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(gnoll_scaling)
 		return
 
 	var/mode = get_gnoll_scaling()
-	var/target_slots = 3 //OV Edit - 1
+	var/target_slots = 1
 	if(!SSgamemode.allow_vote && !isnull(SSgamemode.admin_slots["Gnoll"]))
 		target_slots = max(0, SSgamemode.admin_slots["Gnoll"])
 	else
