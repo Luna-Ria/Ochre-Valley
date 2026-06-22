@@ -559,8 +559,10 @@
 	associated_skill = /datum/skill/combat/unarmed
 	w_class = WEIGHT_CLASS_HUGE
 	wlength = WLENGTH_GREAT
+	wbalance = WBALANCE_SWIFT
 	twohands_required = TRUE
 	force = 20
+	wdefense = 0 // Technically unarmed. Wear bracers to parry.
 	max_blade_int = 200
 	max_integrity = 250
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -596,10 +598,10 @@
 	animname = "cut"
 	blade_class = BCLASS_CUT
 	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
-	penfactor = 0
+	penfactor = PEN_NONE
 	chargetime = 0
 	swingdelay = 0
-	clickcd = 8
+	clickcd = CLICK_CD_FAST
 	item_d_type = "slash"
 
 /datum/intent/wing/shred
@@ -609,8 +611,8 @@
 	animname = "chop"
 	blade_class = BCLASS_CHOP
 	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
-	penfactor = 10
-	damfactor = 1.5
+	penfactor = PEN_LIGHT
+	damfactor = 1
 	swingdelay = 5
 	clickcd = 10
 	item_d_type = "slash"
@@ -623,7 +625,7 @@
 	penfactor = 90
 	clickcd = 15
 	swingdelay = 0
-	damfactor = 1.3
+	damfactor = 1
 	blade_class = BCLASS_PICK
 
 /datum/intent/wing/pick
@@ -631,10 +633,10 @@
 	icon_state = "inpick"
 	attack_verb = list("stabs", "impales")
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
-	penfactor = 75
+	penfactor = PEN_MEDIUM
 	clickcd = 14
 	swingdelay = 12
-	damfactor = 1.1
+	damfactor = 1
 	blade_class = BCLASS_PICK
 
 /obj/item/rogueweapon/huntingknife/idagger/harpy_talons/equipped(mob/user, slot, initial)
