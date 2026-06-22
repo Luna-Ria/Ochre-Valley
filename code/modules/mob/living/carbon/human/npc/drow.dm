@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	dodgetime = 30
 	d_intent = INTENT_DODGE
 	blood_toll_bucket = STATS_KILLED_DROWS
+	var/outfit = /datum/outfit/job/roguetown/human/species/elf/dark/drowraider //OV ADD
 
 
 /mob/living/carbon/human/species/elf/dark/drowraider/ambush
@@ -71,7 +72,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	ADD_TRAIT(src, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_DUALWIELDER, TRAIT_GENERIC)
-	equipOutfit(new /datum/outfit/job/roguetown/human/species/elf/dark/drowraider)
+	equipOutfit(new outfit) //OV EDIT
 	if(prob(40))
 		gender = MALE
 	else
@@ -127,7 +128,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 
 
 /datum/outfit/job/roguetown/human/species/elf/dark/drowraider/pre_equip(mob/living/carbon/human/H)
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/shadowpants/drowraider
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/shadowvest/drowraider
 	shirt = /obj/item/clothing/suit/roguetown/shirt/shadowshirt/elflock/drowraider
@@ -178,7 +179,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	equipOutfit(new /datum/outfit/job/roguetown/human/species/elf/dark/drowraider/archer)
 
 /datum/outfit/job/roguetown/human/species/elf/dark/drowraider/archer/pre_equip(mob/living/carbon/human/H)
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/shadowpants/drowraider
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/shadowvest/drowraider
 	shirt = /obj/item/clothing/suit/roguetown/shirt/shadowshirt/elflock/drowraider

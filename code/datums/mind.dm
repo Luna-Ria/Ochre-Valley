@@ -1081,6 +1081,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 /datum/mind/proc/RemoveAllSpells()
 	for(var/datum/S in spell_list)
 		RemoveSpell(S)
+	for(var/datum/SP in current.actions)
+		RemoveSpell(SP)
 
 /datum/mind/proc/transfer_martial_arts(mob/living/new_character)
 	if(!ishuman(new_character))
@@ -1269,10 +1271,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 				I.sellprice = 0
 				I.smeltresult = null
 				I.salvage_result = null
-			//OV Add Start
-			else
-				user.mind.adjust_triumphs(-LI.triumph_cost)
-			//OV Add End
 			// Apply metadata (color, custom name, custom desc)
 			if(metadata["color"])
 				I.add_atom_colour(metadata["color"], FIXED_COLOUR_PRIORITY)
