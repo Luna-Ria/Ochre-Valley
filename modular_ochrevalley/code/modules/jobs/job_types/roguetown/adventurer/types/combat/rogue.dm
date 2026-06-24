@@ -53,6 +53,7 @@
 		/datum/skill/craft/armorsmithing = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/blacksmithing = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/tanning = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/engineering = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/magic/arcane = SKILL_LEVEL_NOVICE
 	)
@@ -128,7 +129,7 @@
 	beltr = /obj/item/flashlight/flare/torch/lantern
 	belt = /obj/item/storage/belt/rogue/leather
 	backpack_contents = list(
-		/obj/item/rogueweapon/huntingknife/idagger/steel = 1,
+		/obj/item/rogueweapon/huntingknife/idagger/steel/parrying = 1,
 		/obj/item/recipe_book/survival = 1,
 		/obj/item/chalk = 1,
 		/obj/item/lockpick = 1,
