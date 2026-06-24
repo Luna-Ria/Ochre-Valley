@@ -133,6 +133,10 @@
 			to_update = TRUE
 		if(istype(returns) && returns["soundToPlay"] && !play_sound)
 			play_sound = returns["soundToPlay"]
+		//OV edit
+		if(mode_flags & DM_FLAG_MANA_DRAIN)
+			steal_mana(L)
+		//OV edit end
 
 	if(play_sound)
 		for(var/mob/M in hearers(VORE_SOUND_RANGE, get_turf(owner))) //so we don't fill the whole room with the sound effect
@@ -376,3 +380,10 @@
 		owner.updateVRPanel()
 	if(isanimal(owner))
 		owner.update_icon()
+
+//OV edit
+/obj/belly/proc/steal_mana(mob/living/L)
+	if((L.energy > 0) && (L.client)) //Make sure it's a player so you can't use goblins as mana batteries.
+		L.energy_add(-1)
+		owner.energy_add(1)
+//OV edit end
