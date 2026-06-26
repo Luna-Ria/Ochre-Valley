@@ -3832,6 +3832,7 @@
 #include "modular_ochrevalley\code\modules\logging\categories\log_category_misc.dm"
 #include "modular_ochrevalley\code\modules\client\verbs\character_directory.dm"
 #include "modular_ochrevalley\code\recipes\pastry_recipes.dm"
+#include "modular_ochrevalley\code\modules\jobs\job_types\roguetown\adventurer\types\combat\rogue.dm"
 #include "modular_ochrevalley\code\modules\jobs\job_types\roguetown\adventurer\types\combat\spellblade_pre_rework.dm"
 #include "modular_ochrevalley\code\modules\jobs\job_types\roguetown\courtier\legacycouncillor.dm"
 #include "modular_ochrevalley\code\modules\jobs\job_types\roguetown\garrison\legacywarden.dm"
