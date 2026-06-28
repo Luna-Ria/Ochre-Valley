@@ -2,7 +2,7 @@
 	name = "Psyaltrist"
 	tutorial = "You spent some time cathedral choirs and the order of the Psyaltrists, musical artists of HIS faith. Wanderlust made you join the Missionata - to bring HIS music to these people who have long heard silence from the true faith." //OV Edit per Lore Doc
 	outfit = /datum/outfit/job/roguetown/psyaltrist
-	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_EMPATH)
+	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_EMPATH, TRAIT_STEELHEARTED, TRAIT_INQUISITION)
 	category_tags = list(CTAG_ORTHODOXIST)
 	subclass_languages = list(/datum/language/otavan)
 	subclass_stats = list(
