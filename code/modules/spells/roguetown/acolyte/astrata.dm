@@ -268,7 +268,7 @@
 
 //OV ADD START
 ////////////////////////////////////////////////////////////////
-// T2 - Solar BLade / Fist - Choose between one or the other. //
+// T2 - Solar BLade / Sceptre - Choose between one or the other. //
 ////////////////////////////////////////////////////////////////
 
 /datum/action/cooldown/spell/astrata/bladeorfist
