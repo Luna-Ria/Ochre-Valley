@@ -852,12 +852,6 @@
 	for(var/bp in body_parts)
 		if(!bp)
 			continue
-		if(skin_armor) //Checks for the natural_armor first.
-			if(skin_armor.obj_integrity > 0)
-				var/obj/item/clothing/C = skin_armor
-				var/val = C.armor.getRating(d_type)
-				if(val > protection)
-					used = C
 		if(bp && istype(bp, /obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
@@ -972,4 +966,3 @@
 	for(var/X in burning_items)
 		var/obj/item/I = X
 		I.fire_act(stacks * 25 * seconds_per_tick) //damage taken is reduced to 2% of this value by fire_act()
-
