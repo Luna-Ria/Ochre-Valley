@@ -322,7 +322,7 @@
 						var/skill_target = defender_skill
 						if(!HAS_TRAIT(src, TRAIT_GOODTRAINER))
 							skill_target -= SKILL_LEVEL_NOVICE
-						if(HAS_TRAIT(src, TRAIT_BADTRAINER)) //OV Edit - TRAINING BUG FIX
+						if(HAS_TRAIT(src, TRAIT_BADTRAINER))
 							skill_target -= SKILL_LEVEL_NOVICE
 						if (can_train_combat_skill(U, attacker_skill_type, skill_target))
 							U.mind.add_sleep_experience(attacker_skill_type, max(round(STAINT*exp_multi), 0), FALSE)
