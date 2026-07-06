@@ -30,6 +30,6 @@
 	name = "Armored Cow Bell Collar, Iron"
 	created_item = /obj/item/clothing/neck/roguetown/gorget/collar/bell/cow
 
-/datum/anvil_recipe/armor/steel/sgorget/collar/bell
-	name = "Armored Cow sBell Collar, Steel"
+/datum/anvil_recipe/armor/steel/sgorget/collar/bell/cow
+	name = "Armored Cow Bell Collar, Steel"
 	created_item = /obj/item/clothing/neck/roguetown/gorget/steel/collar/bell/cow
