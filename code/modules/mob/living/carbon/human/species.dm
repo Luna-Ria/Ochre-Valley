@@ -648,7 +648,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/is_inhumen = HAS_TRAIT(H, TRAIT_INHUMEN_ANATOMY)
 	var/num_arms = H.get_num_arms(FALSE)
 	var/num_legs = H.get_num_legs(FALSE)
-	var/is_harpy = isharpy(H)
 	var/is_taur = !!H.get_taur_tail()
 
 	switch(slot)
