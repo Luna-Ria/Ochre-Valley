@@ -25,6 +25,18 @@
 	// (we don't use icon_state to avoid duplicate rendering on dropped organs)
 	var/taur_icon_state = "naga_s"
 
+	//OV ADD - TAUR BARDING
+	// Determines which set of taur barding sprites to use. Easiest way to do this, frankly... ough.
+	// "m" = mammalian (canine, feline, tempest, kitsune, venard, skunk)
+	// "r" = reptilian (drake, noodle, sloog)
+	// "d" = deer
+	// null = no taur-specific clothing support
+	var/taur_clothing_category = null
+	// Customizable colors for plate tasset overlays (like detail_color on clothing)
+	var/tasset1_color = null
+	var/tasset2_color = null
+	//OV ADD END
+
 	// We can Blend() a color with the base greyscale color, only some tails support this
 	var/has_taur_color = FALSE
 	var/color_blend_mode = BLEND_ADD
@@ -148,6 +160,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Feline Body"
 
 	offset_x = -16
+	taur_clothing_category = "m"
 	taur_icon_state = "feline_s"
 
 	has_taur_color = TRUE
