@@ -74,7 +74,7 @@
 		//OV Edit: Ochrebot relay
 		if(CONFIG_GET(flag/amia_enabled))
 			amia_relaynote(target_ckey, admin_ckey, text, note_severity)
-	elif(type = "watchlist entry")
+	else if(type == "watchlist entry")
 		if(CONFIG_GET(flag/amia_enabled))
 			amia_relaynote(target_ckey, admin_ckey, text, "watchlisted")
 	//OV Edit End
