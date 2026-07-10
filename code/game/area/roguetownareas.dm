@@ -48,6 +48,11 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(list(/area/rogue/indoors
 	//Caustic edit
 	if((src.town_area == TRUE) && HAS_TRAIT(guy, TRAIT_FERAL) && !guy.has_status_effect(/datum/status_effect/buff/feraldebuff)) //feral creatures don't do well in town
 		guy.apply_status_effect(/datum/status_effect/buff/feraldebuff)
+		guy.add_stress(/datum/stressevent/feralintown)
+	//OV edit
+	if((src.town_area == TRUE) && HAS_TRAIT(guy, TRAIT_FERAL_MINOR) && !guy.has_status_effect(/datum/status_effect/buff/feraldebuff_minor)) //for domesticated wildsouls to discourage them being in town
+		guy.add_stress(/datum/stressevent/feralintown)
+	//OV edit end
 	if((src.town_area == TRUE) && HAS_TRAIT(guy, TRAIT_NECRAS_ABATEMENT) && !guy.has_status_effect(/datum/status_effect/buff/deadite_pacified)) //zombie pacification
 		guy.apply_status_effect(/datum/status_effect/buff/deadite_pacified)
 	//Caustic edit end
